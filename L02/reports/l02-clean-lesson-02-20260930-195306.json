@@ -1,0 +1,11 @@
+{
+  "runs": {
+    "clean": 1,
+    "lesson-02": 1
+  },
+  "clock": "2026-09-15T10:00:00Z",
+  "judge_provider": "anthropic",
+  "judge_model": "claude-haiku-4-5",
+  "facts": {},
+  "records": []
+}

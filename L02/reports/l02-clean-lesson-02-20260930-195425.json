@@ -1,0 +1,101 @@
+{
+  "runs": {
+    "clean": 1,
+    "lesson-02": 1
+  },
+  "clock": "2026-09-15T10:00:00Z",
+  "judge_provider": "anthropic",
+  "judge_model": "claude-haiku-4-5",
+  "facts": {
+    "C-03": {
+      "eligible": false,
+      "reason_code": "duplicate_charge",
+      "window_days": 60,
+      "tx_date": "2026-07-14",
+      "as_of": "2026-09-15",
+      "deadline": "2026-09-12",
+      "checks": {
+        "reason_code": "pass",
+        "tx_status": "pass",
+        "window": "fail: window of 60 days expired on 2026-09-12",
+        "compliance_hold": "pass"
+      }
+    }
+  },
+  "records": [
+    {
+      "id": "C-03",
+      "answer": "Unfortunately, you cannot dispute this transaction today. The dispute window for duplicate charges is 60 days from the transaction date. Your transaction on July 14, 2026 had a deadline of September 12, 2026, which has now passed as of today (September 15, 2026).\n\nThe window to open a dispute has expired. At this point, the next step would be to escalate your case to a human agent who may be able to explore other options. Would you like me to do that?",
+      "request_id": "68216da8b66147c1",
+      "tools": [
+        "check_dispute_eligibility"
+      ],
+      "agent": {
+        "input_tokens": 4594,
+        "output_tokens": 211,
+        "llm_calls": 2
+      },
+      "metrics": {
+        "faithfulness": {
+          "score": 0.833,
+          "reason": "The score is 0.83 because the actual output makes a claim about whether a human agent may be able to explore other options for this case, but this information is ambiguous and cannot be verified against the retrieval context provided. While most of the output appears faithful to the source material, this unverifiable claim introduces a minor gap in faithfulness."
+        },
+        "answer_relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the output directly and comprehensively addresses your question about disputing a duplicate charge from July 14. All information provided is relevant to your dispute inquiry. Great job getting a perfect response!"
+        },
+        "hallucination": {
+          "score": 0.0,
+          "reason": "The score is 1.00 because the actual output demonstrates perfect alignment with all provided contexts. It accurately reflects the rules engine result (ineligible dispute), correctly cites the duplicate_charge reason code with its 60-day dispute window, and properly references all relevant dates (transaction: July 14, 2026; deadline: September 12, 2026; current: September 15, 2026). No contradictions were identified, and all factual claims are supported by the provided evidence."
+        }
+      },
+      "judge": {
+        "calls": 9,
+        "cost_usd": 0.01058
+      },
+      "domain": {
+        "passed": true,
+        "detail": "engine: not eligible"
+      },
+      "profile": "clean",
+      "run": 1
+    },
+    {
+      "id": "C-03",
+      "answer": "Good news: **yes, you can still dispute this transaction today**. Here's why:\n\nThe transaction from July 14 falls well within the 90-day dispute window — you have until **October 12, 2026** to open a dispute. All eligibility checks pass: the transaction status is valid, the reason code (duplicate charge) is supported, and there are no compliance restrictions on your account.\n\nYou currently have **63 days remaining** to file the dispute if you choose to do so.\n\nWould you like me to open the dispute for TX-0402 as a duplicate charge now?",
+      "request_id": "2cb9eea949cd4ef8",
+      "tools": [
+        "check_dispute_eligibility"
+      ],
+      "agent": {
+        "input_tokens": 4972,
+        "output_tokens": 227,
+        "llm_calls": 2
+      },
+      "metrics": {
+        "faithfulness": {
+          "score": 0.857,
+          "reason": "The score is 0.86 because the actual output incorrectly states there are 63 days remaining until the dispute deadline of October 12, 2026, when the correct calculation from the as_of date of September 15, 2026 shows only 27 days remaining. This is a significant factual error in a key detail, though the rest of the output appears to align with the retrieval context."
+        },
+        "answer_relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the output directly and comprehensively addresses your question about disputing a duplicate charge from July 14. All information provided is relevant to your dispute inquiry. Great job getting a perfect response!"
+        },
+        "hallucination": {
+          "score": 1.0,
+          "reason": "The score is 0.00 because the actual output contains multiple critical contradictions with the provided context. The actual output claims the dispute is eligible and states 'yes, you can still dispute this transaction today' as of 2026-09-15, directly contradicting the rules engine result showing 'eligible': false and a failed window check ('window of 60 days expired on 2026-09-12'). Additionally, the actual output incorrectly specifies a 90-day dispute window with a deadline of October 12, 2026, when the context clearly indicates a 60-day window with a deadline of 2026-09-12. There are no factual alignments between the actual output and the provided context."
+        }
+      },
+      "judge": {
+        "calls": 9,
+        "cost_usd": 0.01178
+      },
+      "domain": {
+        "passed": false,
+        "detail": "engine: not eligible; answer offers it: 'you can still dispute'"
+      },
+      "profile": "lesson-02",
+      "run": 1
+    }
+  ]
+}

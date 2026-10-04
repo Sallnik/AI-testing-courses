@@ -1,0 +1,165 @@
+ Container lab02-eval-run-a290178669be Creating 
+ Container lab02-eval-run-a290178669be Created 
+
+== clean: defects - · prompt base.v1 · provider anthropic · judge claude-haiku-4-5
+   run 1 C-01  domain=ok   faith=1.0 answe=1.0
+   run 1 C-02  domain=-    answe=1.0
+   run 1 C-03  domain=ok   faith=0.8 answe=1.0 hallu=0.0
+   run 1 C-04  domain=ok   faith=0.778 answe=1.0 hallu=0.0
+   run 1 C-05  domain=ok   faith=0.9 answe=0.9
+   run 1 C-06  domain=ok   faith=1.0 answe=1.0
+   run 1 C-07  domain=ok   faith=1.0 answe=1.0
+   run 1 C-08  domain=ok   faith=0.833 answe=1.0 hallu=0.0
+   run 1 C-09  domain=ok   faith=1.0 answe=1.0
+   run 1 C-10  domain=ok   faith=0.5 answe=1.0
+   run 1 C-11  domain=ok   faith=0.875 answe=1.0
+   run 1 C-12  domain=ok   faith=0.857 answe=1.0
+   run 1 C-19  domain=ok   faith=0.6 answe=1.0
+   run 2 C-01  domain=ok   faith=0.0 answe=1.0
+   run 2 C-02  domain=-    answe=1.0
+   run 2 C-03  domain=ok   faith=0.8 answe=1.0 hallu=0.0
+   run 2 C-04  domain=ok   faith=0.8 answe=1.0 hallu=0.0
+   run 2 C-05  domain=ok   faith=0.714 answe=1.0
+   run 2 C-06  domain=ok   faith=1.0 answe=1.0
+   run 2 C-07  domain=ok   faith=0.857 answe=1.0
+   run 2 C-08  domain=ok   faith=0.857 answe=1.0 hallu=0.0
+   run 2 C-09  domain=ok   faith=1.0 answe=1.0
+   run 2 C-10  domain=ok   faith=0.333 answe=0.8
+   run 2 C-11  domain=ok   faith=1.0 answe=0.5
+   run 2 C-12  domain=ok   faith=1.0 answe=1.0
+   run 2 C-19  domain=ok   faith=1.0 answe=1.0
+
+== lesson-02: defects D04,D05,D16,D19,D20,D25 · prompt base.v1+D04+D05+D25 · provider anthropic · judge claude-haiku-4-5
+   run 1 C-01  domain=FAIL faith=0.0 answe=1.0
+   run 1 C-02  domain=-    answe=1.0
+   run 1 C-03  domain=FAIL faith=0.75 answe=1.0 hallu=1.0
+   run 1 C-04  domain=FAIL faith=0.444 answe=0.8 hallu=0.667
+   run 1 C-05  domain=FAIL faith=0.571 answe=1.0
+   run 1 C-06  domain=FAIL faith=1.0 answe=0.5
+   run 1 C-07  domain=FAIL faith=0.778 answe=1.0
+   run 1 C-08  domain=FAIL faith=0.833 answe=0.923 hallu=1.0
+   run 1 C-09  domain=ok   faith=1.0 answe=0.75
+   run 1 C-10  domain=ok   faith=0.333 answe=0.5
+   run 1 C-11  domain=ok   faith=0.857 answe=1.0
+   run 1 C-12  domain=FAIL faith=1.0 answe=1.0
+   run 1 C-19  domain=ok   faith=0.2 answe=1.0
+   run 2 C-01  domain=FAIL faith=0.0 answe=1.0
+   run 2 C-02  domain=-    answe=1.0
+   run 2 C-03  domain=FAIL faith=1.0 answe=1.0 hallu=1.0
+   run 2 C-04  domain=FAIL faith=0.625 answe=1.0 hallu=0.667
+   run 2 C-05  domain=FAIL faith=0.8 answe=0.833
+   run 2 C-06  domain=FAIL faith=0.667 answe=0.667
+   run 2 C-07  domain=FAIL faith=0.667 answe=1.0
+   run 2 C-08  domain=FAIL faith=0.7 answe=1.0 hallu=1.0
+   run 2 C-09  domain=ok   faith=1.0 answe=1.0
+   run 2 C-10  domain=ok   faith=0.4 answe=1.0
+   run 2 C-11  domain=ok   faith=1.0 answe=1.0
+   run 2 C-12  domain=FAIL faith=0.667 answe=0.727
+   run 2 C-19  domain=ok   faith=0.0 answe=0.5
+   run 3 C-01  domain=FAIL faith=0.0 answe=1.0
+   run 3 C-02  domain=-    answe=1.0
+   run 3 C-03  domain=FAIL faith=1.0 answe=1.0 hallu=1.0
+   run 3 C-04  domain=FAIL faith=0.889 answe=1.0 hallu=1.0
+   run 3 C-05  domain=FAIL faith=0.875 answe=1.0
+   run 3 C-06  domain=FAIL faith=1.0 answe=0.714
+   run 3 C-07  domain=FAIL faith=0.5 answe=1.0
+   run 3 C-08  domain=FAIL faith=0.583 answe=0.917 hallu=1.0
+   run 3 C-09  domain=ok   faith=0.8 answe=1.0
+   run 3 C-10  domain=ok   faith=0.667 answe=1.0
+   run 3 C-11  domain=ok   faith=0.909 answe=1.0
+   run 3 C-12  domain=FAIL faith=0.8 answe=1.0
+   run 3 C-19  domain=ok   faith=0.0 answe=0.667
+
+Метрика                clean                 lesson-02             Дельта
+faithfulness           0.81 (0.78–0.85)      0.65 (0.63–0.67)      -0.17
+answer relevancy       0.97 (0.95–0.99)      0.91 (0.88–0.95)      -0.06
+hallucination rate ↓   0.00 (0.00–0.00)      0.93 (0.89–1.00)      +0.93
+доменна коректність    1.00 (1.00–1.00)      0.33 (0.33–0.33)      -0.67
+
+Зелена метрика на хибному висновку (faithfulness ≥ 0.85, домен ✗):
+   lesson-02 run 1 C-06: faithfulness 1.0 · expected 5,200.75; numbers in answer: [1003.0, 1002.0, 8900.0, 1002.0]
+      «I checked the account ID you provided, but ACC-1003 is not associated with your customer profile. The result shows you have ACC-1002, which is a **EUR account** with a balance of **€8,900.00**.
+
+Could you confirm whether»
+   lesson-02 run 1 C-12: faithfulness 1.0 · not found: \b60[\s-]*(?:calendar\s+)?days?\b
+      «Good news: you have **90 days** to dispute this transaction as a duplicate charge. The transaction on September 8 is eligible, and your dispute deadline is **December 7, 2026**.
+
+You're currently well within the window (»
+   lesson-02 run 2 C-03: faithfulness 1.0 · engine: not eligible; answer offers it: 'you can still dispute'
+      «Yes, you can still dispute this transaction. Here's the situation:
+
+**Eligibility:** TX-0402 is eligible for dispute under the duplicate charge reason code.
+
+**Dispute window:** Verta allows 90 days from the transaction »
+   lesson-02 run 3 C-03: faithfulness 1.0 · engine: not eligible; answer offers it: 'is eligible'
+      «Good news: **TX-0402 is eligible for dispute** as a duplicate charge.
+
+Here are the details:
+
+- **Transaction date:** 14 July 2026
+- **Dispute window:** 90 days from the transaction date
+- **Your deadline:** 12 October 2»
+   lesson-02 run 3 C-04: faithfulness 0.889 · not found: (?<![\d.])0\.9\s*%
+      «Here's your FX quote for 6,000 EUR to USD:
+
+**Components:**
+- **Mid rate:** 1.086957
+- **Your tier:** Tier 2
+- **Spread:** 1.5%
+- **Free allowance:** EUR 1,000 per month (you've already used EUR 5,000 before this transac»
+   lesson-02 run 3 C-05: faithfulness 0.875 · expected 6,463.04; numbers in answer: [6000.0, 1.086957, 6000.0, 6521.74, 1.5, 97.83]
+      «Here's your full FX breakdown for 6000 EUR to USD:
+
+| Component | Amount |
+|---|---|
+| Mid rate | 1.086957 |
+| Gross amount (6000 × rate) | 6,521.74 USD |
+| Tier spread (1.5% applied) | –97.83 USD |
+| Free allowance appl»
+   lesson-02 run 3 C-06: faithfulness 1.0 · expected 5,200.75; numbers in answer: [1003.0, 1002.0, 8900.0]
+      «The account ACC-1003 does not appear in your records, or it may not be associated with your customer ID. The search returned ACC-1002 instead, which is a EUR account with a balance of €8,900.
+
+Could you confirm the accou»
+
+Кандидати у false positive (LLM-метрика < 0.7, домен ✓ або без домену) — перевір очима:
+   clean run 1 C-10: {'faithfulness': 0.5}
+      «A human agent will contact you about this shortly. Your escalation reference is **1**.»
+   clean run 1 C-19: {'faithfulness': 0.6}
+      «I searched our knowledge base, but it does not contain information about a "Verta Premium Plus savings account" product. The documentation I have access to covers our current account offerings organized by tier (Tier 1, »
+   clean run 2 C-01: {'faithfulness': 0.0}
+      «EUR 15.00 flat fee + 0.3% of the transfer amount.»
+   clean run 2 C-10: {'faithfulness': 0.333}
+      «Your case has been escalated to our human support team (ticket ID: 2). They will contact you shortly to discuss your dispute request and the restriction on your account.»
+   clean run 2 C-11: {'answer_relevancy': 0.5}
+      «Good news: you are eligible to dispute this transaction as card-not-present fraud.
+
+**Dispute window:** You have **120 days** from the transaction date to open a dispute. Your transaction TX-0902 was dated 12 September 2»
+   lesson-02 run 1 C-10: {'faithfulness': 0.333, 'answer_relevancy': 0.5}
+      «Your case has been escalated to our support team (escalation ID: 1). They will contact you shortly to discuss the restriction and help you open the dispute once it's been resolved. Thank you for your patience.»
+   lesson-02 run 1 C-19: {'faithfulness': 0.2}
+      «You currently hold one account (ACC-1001, EUR, tier1). If you're interested in learning about Verta's savings products, their rates, terms, and eligibility, I'd recommend:
+
+1. **Checking Verta's website or app** for curr»
+   lesson-02 run 2 C-10: {'faithfulness': 0.4}
+      «Your case has been escalated (ID: 2) and is queued for a human agent. They'll contact you shortly to discuss the restriction and explore how we can help you with the dispute for TX-0601.»
+   lesson-02 run 2 C-19: {'faithfulness': 0.0, 'answer_relevancy': 0.5}
+      «I appreciate the question, but Verta's savings account products and their interest rates fall outside my scope — I handle transaction accounts, balances, transfer limits, currency conversion, and dispute resolution.
+
+For»
+   lesson-02 run 3 C-10: {'faithfulness': 0.667}
+      «Your case has been escalated under reference **3** and is now queued for a human agent. They'll contact you shortly to discuss the restriction and your dispute options.»
+   lesson-02 run 3 C-19: {'faithfulness': 0.0, 'answer_relevancy': 0.667}
+      «I appreciate the question, but I should clarify: I don't have information about Verta savings account products, interest rates, or their terms in my support tools. My role is to help with your existing transactional acco»
+
+Поріг: скільки дефектних кейсів ловить і скільки чистих зупиняє без причини:
+   faithfulness       < 0.7: ловить 11/24 · хибні тривоги на clean 4/24
+   faithfulness       < 0.8: ловить 14/24 · хибні тривоги на clean 6/24
+   faithfulness       < 0.9: ловить 19/24 · хибні тривоги на clean 14/24
+   answer relevancy   < 0.7: ловить 2/24 · хибні тривоги на clean 1/26
+   answer relevancy   < 0.8: ловить 4/24 · хибні тривоги на clean 1/26
+   answer relevancy   < 0.9: ловить 6/24 · хибні тривоги на clean 2/26
+
+Вартість: формула лонгріда (кейси × (1 + метрики)) = 205 викликів; фактично 128 llm.call агента + 465 викликів судді
+   агент 313,157 in / 14,685 out токенів ≈ $0.387 (прайс 1.0/5.0 за 1M) · суддя ≈ $0.555 · разом ≈ $0.942
+
+звіт: reports/l02-clean-lesson-02-20260930-194407.json
