@@ -51,8 +51,8 @@
 | Прогін | Профіль | Результат | Звіт |
 | --- | --- | --- | --- |
 | Baseline | `clean` | 54/56 | `reports/golden-clean-default-prompt.json` |
-| Дефектна система | `lesson-03` | 33/56 | `reports/golden-lesson-03-default-promt.json` |
-| Зміна промпту | `clean` + рядок | 41/56 | `reports/golden-clean-changed prompt.json` |
+| Дефектна система | `lesson-03` | 33/56 | `reports/golden-lesson-03-default-prompt.json` |
+| Зміна промпту | `clean` + рядок | 41/56 | `reports/golden-clean-changed-prompt.json` |
 
 
 Кейси з `gate: release` у прогін не входять, тому M менше за розмір набору.

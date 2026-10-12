@@ -7,7 +7,7 @@ we walk the combinations and keep the ones closest to each window edge
 (last day inside, first day outside) plus one from the middle of the range.
 
 Run (local python is too old for the engines, so use the stand container):
-  docker compose exec -T stand python - < oleh-salnikov/L03/generate_boundary_cases.py > sets/l03-boundaries.jsonl
+  docker compose exec -T stand python - < oleh-salnikov/L03/generate_golden.py > sets/l03-boundaries.jsonl
 """
 import json
 import sys
@@ -74,7 +74,7 @@ def fx_cases():
                  "assertion": "tool_grounded_numeric",
                  "tool": "quote_fx", "field": "final_amount",
                  "expected_number": round(q.final_amount, 2), "tolerance": 0.02,
-                 "source": "engine", "failure_mode": failure,
+                 "source": "edge", "failure_mode": failure,
                  "severity": "high", "runs": 1, "added_in": "l03",
                  "gate": "daily", "boundary": f"allowance {label}",
                  "context": {"customer_id": cust},
@@ -82,6 +82,33 @@ def fx_cases():
                                  f"allowance_used_eur={used})"),
                  "expected_spread_pct": q.spread_pct,
                  "why_this_level": WHY_GROUNDED}))
+
+    # C-08: CUS-0007 has the whole tier-2 allowance left, so the allowance
+    # itself (spread 0) and 1 EUR over it (full spread, all-or-nothing)
+    cust = "CUS-0007"
+    tier, used = CUSTOMERS[cust]["tier"], CUSTOMERS[cust]["fx_used"]
+    remaining = policy.FX_FREE_MONTHLY_ALLOWANCE_EUR[tier] - used
+    for cid, label, amount, failure in (
+            ("FX-006", "edge-in", remaining, "allowance_ignored"),
+            ("FX-007", "edge-out", remaining + 1, "partial_allowance")):
+        q = fx.quote(amount, "EUR", "USD", tier, allowance_used_eur=used)
+        out.append(case(
+            cid,
+            f"I'm {cust}. Convert {amount:g} EUR to USD. "
+            f"What is the final amount I receive?",
+            f"{q.final_amount:.2f} USD",
+            {"layer": "generation", "oracle": "engine",
+             "assertion": "tool_grounded_numeric",
+             "tool": "quote_fx", "field": "final_amount",
+             "expected_number": round(q.final_amount, 2), "tolerance": 0.02,
+             "source": "edge", "failure_mode": failure,
+             "severity": "high", "runs": 1, "added_in": "l03",
+             "gate": "daily", "boundary": f"allowance {label}",
+             "context": {"customer_id": cust},
+             "engine_call": (f"fx.quote({amount:g}, 'EUR', 'USD', {tier!r}, "
+                             f"allowance_used_eur={used})"),
+             "expected_spread_pct": q.spread_pct,
+             "why_this_level": WHY_GROUNDED}))
     return out
 
 
@@ -144,7 +171,7 @@ def limit_cases():
              "assertion": "tool_grounded_numeric",
              "tool": "check_limits", "field": field,
              "expected_number": round(value, 2), "tolerance": 1.0,
-             "source": "engine",
+             "source": "edge",
              "failure_mode": "wrong_window" if "edge" in label else "daily_as_monthly",
              "severity": "high", "runs": 1, "added_in": "l03",
              "gate": "daily", "boundary": label,
@@ -204,7 +231,7 @@ def dispute_cases():
              "assertion": "tool_result_flag",
              "tool": "check_dispute_eligibility", "field": "eligible",
              "expected_flag": r.eligible,
-             "source": "engine",
+             "source": "edge",
              "failure_mode": "engine_seam" if c["hold"] else "wrong_window",
              "severity": "critical", "runs": 1, "added_in": "l03",
              "gate": "daily", "boundary": label,

@@ -8,8 +8,8 @@
 | Звіт | Профіль | Промпт | Пройшло |
 | --- | --- | --- | --- |
 | `golden-clean-default-prompt.json` | clean | base.v1 | 54 / 56 |
-| `golden-clean-changed prompt.json` | clean | змінений (у звіті все одно `base.v1`) | 41 / 56 |
-| `golden-lesson-03-default-promt.json` | lesson-03 | base.v1 | 33 / 56 |
+| `golden-clean-changed-prompt.json` | clean | змінений (у звіті все одно `base.v1`) | 41 / 56 |
+| `golden-lesson-03-default-prompt.json` | lesson-03 | base.v1 | 33 / 56 |
 
 
 ## 1. Матриця покриття
