@@ -1,0 +1,599 @@
+{
+ "exercise-1": {
+  "message": "Search the Verta documentation: what FX spread applies to my account and what is my free monthly conversion allowance?",
+  "customer_id": "CUS-0003",
+  "runs": [
+   {
+    "profile": "clean",
+    "index": "kb_clean",
+    "top_k": 1,
+    "run": 1,
+    "request_id": "2e19596d4e884124",
+    "usage": {
+     "input_tokens": 5779,
+     "output_tokens": 410,
+     "model": "claude-haiku-5-5",
+     "cost_usd": 0.000783
+    },
+    "tools": [
+     "tool.get_account",
+     "tool.search_knowledge_base"
+    ],
+    "searches": [
+     {
+      "query": "FX spread by customer tier and free monthly conversion allowance",
+      "index": "kb_clean",
+      "top_k": 1,
+      "fragments": [
+       {
+        "id": "tariffs.md#s2",
+        "text": "Verta tariff schedule\n## FX spreads by tier\nThe spread is applied over the mid-market rate only after the free monthly\nconversion allowance is exhausted.\n\n| Tie"
+       }
+      ]
+     }
+    ],
+    "answer": "Your account is on **Tier 3**, so the documented terms are:\n\n- **FX spread:** 0.5% over the mid-market rate\n- **Free monthly conversion allowance:** EUR 5,000\n\nPer the Verta tariff schedule, the spread applies only after the monthly allowance is used up. Conversions within the EUR 5,000 allowance carry no spread.\n\nI can run a quote for a specific conversion amount if you'd like to see the exact figures."
+   },
+   {
+    "profile": "clean",
+    "index": "kb_clean",
+    "top_k": 1,
+    "run": 2,
+    "request_id": "3e8018f451914350",
+    "usage": {
+     "input_tokens": 5783,
+     "output_tokens": 440,
+     "model": "claude-haiku-5-5",
+     "cost_usd": 0.000798
+    },
+    "tools": [
+     "tool.get_account",
+     "tool.search_knowledge_base"
+    ],
+    "searches": [
+     {
+      "query": "FX spread by customer tier and free monthly currency conversion allowance",
+      "index": "kb_clean",
+      "top_k": 1,
+      "fragments": [
+       {
+        "id": "tariffs.md#s2",
+        "text": "Verta tariff schedule\n## FX spreads by tier\nThe spread is applied over the mid-market rate only after the free monthly\nconversion allowance is exhausted.\n\n| Tie"
+       }
+      ]
+     }
+    ],
+    "answer": "Your account (ACC-1004, EUR) is on **Tier 3**, so these terms apply according to the Verta tariff schedule:\n\n- **FX spread:** 0.5% over the mid-market rate\n- **Free monthly conversion allowance:** EUR 5,000\n\nThe spread applies only after the free allowance for the month is used up. Conversions within the EUR 5,000 allowance carry no spread.\n\nI can run a full FX quote for a specific amount and currency pair if you'd like to see the exact figures."
+   },
+   {
+    "profile": "clean",
+    "index": "kb_broken",
+    "top_k": 1,
+    "run": 1,
+    "request_id": "e7974d1123a043c9",
+    "usage": {
+     "input_tokens": 9106,
+     "output_tokens": 883,
+     "model": "claude-haiku-5-5",
+     "cost_usd": 0.001352
+    },
+    "tools": [
+     "tool.get_account",
+     "tool.search_knowledge_base",
+     "tool.search_knowledge_base"
+    ],
+    "searches": [
+     {
+      "query": "FX spread by customer tier and free monthly currency conversion allowance",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragments": [
+       {
+        "id": "tariffs.md#b3",
+        "text": "austed. | Tier | FX spread | Free monthly conversion allowance | |---|---|---| | Tier 1 | 1.5% | EUR 500 | | Tier 2 | 0.9% | EUR 1,000 | | Tier 3 | 0.5% | EUR 5"
+       }
+      ]
+     },
+     {
+      "query": "Tier 3 free monthly conversion allowance EUR",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragments": [
+       {
+        "id": "tariffs.md#b3",
+        "text": "austed. | Tier | FX spread | Free monthly conversion allowance | |---|---|---| | Tier 1 | 1.5% | EUR 500 | | Tier 2 | 0.9% | EUR 1,000 | | Tier 3 | 0.5% | EUR 5"
+       }
+      ]
+     }
+    ],
+    "answer": "Your account is on **Tier 3**, which carries an FX spread of **0.5%**. I could not confirm your free monthly conversion allowance.\n\n- **FX spread (Tier 3): 0.5%.** This is from the Verta tariff table in the knowledge base.\n- **Free monthly allowance: not confirmed.** The tariff entry for Tier 3 is cut off after \"EUR 5\", and the second search returned the same truncated text. I won't guess the figure.\n\nOptions to get the exact allowance:\n1. **Request a fee quote.** I can run a quote for a specific conversion amount, which shows the mid rate, spread, free allowance and final amount.\n2. **Escalate to a human agent** to confirm the Tier 3 allowance from the full tariff document.\n\nWould you like me to run a quote, or escalate?"
+   },
+   {
+    "profile": "clean",
+    "index": "kb_broken",
+    "top_k": 1,
+    "run": 2,
+    "request_id": "b7ebb385c29c4e85",
+    "usage": {
+     "input_tokens": 16444,
+     "output_tokens": 1259,
+     "model": "claude-haiku-5-5",
+     "cost_usd": 0.002274
+    },
+    "tools": [
+     "tool.get_account",
+     "tool.search_knowledge_base",
+     "tool.search_knowledge_base",
+     "tool.search_knowledge_base",
+     "tool.check_limits"
+    ],
+    "searches": [
+     {
+      "query": "FX spread by customer tier and free monthly conversion allowance",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragments": [
+       {
+        "id": "tariffs.md#b3",
+        "text": "austed. | Tier | FX spread | Free monthly conversion allowance | |---|---|---| | Tier 1 | 1.5% | EUR 500 | | Tier 2 | 0.9% | EUR 1,000 | | Tier 3 | 0.5% | EUR 5"
+       }
+      ]
+     },
+     {
+      "query": "Tier 3 free monthly conversion allowance EUR",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragments": [
+       {
+        "id": "tariffs.md#b3",
+        "text": "austed. | Tier | FX spread | Free monthly conversion allowance | |---|---|---| | Tier 1 | 1.5% | EUR 500 | | Tier 2 | 0.9% | EUR 1,000 | | Tier 3 | 0.5% | EUR 5"
+       }
+      ]
+     },
+     {
+      "query": "tariffs tier 3 free conversion allowance per month",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragments": [
+       {
+        "id": "tariffs.md#b3",
+        "text": "austed. | Tier | FX spread | Free monthly conversion allowance | |---|---|---| | Tier 1 | 1.5% | EUR 500 | | Tier 2 | 0.9% | EUR 1,000 | | Tier 3 | 0.5% | EUR 5"
+       }
+      ]
+     }
+    ],
+    "answer": "Your account is on **Tier 3**, which carries an FX spread of **0.5%**. I could not confirm your free monthly conversion allowance.\n\n- **FX spread (Tier 3): 0.5%.** This comes from the Verta tariff documentation.\n- **Free monthly conversion allowance: unavailable.** The matching fragment in the documentation is cut off after \"EUR 5\", so I can't tell whether the figure is EUR 500 or another amount. I have not estimated it.\n\nOptions:\n1. I can run a full FX quote for a specific amount and currency pair. The quote shows the mid rate, spread, free allowance and final amount as the system applies them.\n2. I can escalate to a human agent to confirm the allowance from the current tariff schedule.\n\nWhich would you like?"
+   },
+   {
+    "profile": "clean",
+    "index": "kb_broken",
+    "top_k": 5,
+    "run": 1,
+    "request_id": "89719e3f86574f84",
+    "usage": {
+     "input_tokens": 12962,
+     "output_tokens": 1102,
+     "model": "claude-haiku-5-5",
+     "cost_usd": 0.001848
+    },
+    "tools": [
+     "tool.get_account",
+     "tool.search_knowledge_base",
+     "tool.search_knowledge_base"
+    ],
+    "searches": [
+     {
+      "query": "FX spread tier3 free monthly conversion allowance",
+      "index": "kb_broken",
+      "top_k": 5,
+      "fragments": [
+       {
+        "id": "fx-guide.md#b2",
+        "text": " spread (a percentage of the gross converted amount); the free monthly conversion allowance. If the whole conversion fits within the customer's remaining monthl"
+       },
+       {
+        "id": "fx-operations.md#b3",
+        "text": "pplied at settlement is the mid-market rate at settlement time plus the tier spread. ## Allowance accounting The free monthly conversion allowance is counted in"
+       },
+       {
+        "id": "tariffs.md#b3",
+        "text": "austed. | Tier | FX spread | Free monthly conversion allowance | |---|---|---| | Tier 1 | 1.5% | EUR 500 | | Tier 2 | 0.9% | EUR 1,000 | | Tier 3 | 0.5% | EUR 5"
+       },
+       {
+        "id": "tariffs.md#b2",
+        "text": "aily and per-month transfer limits. ## FX spreads by tier The spread is applied over the mid-market rate only after the free monthly conversion allowance is exh"
+       },
+       {
+        "id": "fx-guide.md#b4",
+        "text": "id rate, spread percentage applied, allowance total and allowance used before this conversion, gross converted amount, spread amount, and the final credited amo"
+       }
+      ]
+     },
+     {
+      "query": "Tier 3 free monthly conversion allowance EUR",
+      "index": "kb_broken",
+      "top_k": 5,
+      "fragments": [
+       {
+        "id": "tariffs.md#b3",
+        "text": "austed. | Tier | FX spread | Free monthly conversion allowance | |---|---|---| | Tier 1 | 1.5% | EUR 500 | | Tier 2 | 0.9% | EUR 1,000 | | Tier 3 | 0.5% | EUR 5"
+       },
+       {
+        "id": "limits.md#b3",
+        "text": "t | Monthly limit | |---|---|---| | Tier 1 | EUR 5,000 | EUR 50,000 | | Tier 2 | EUR 20,000 | EUR 200,000 | | Tier 3 | EUR 100,000 | EUR 1,000,000 | ## How the "
+       },
+       {
+        "id": "fx-operations.md#b3",
+        "text": "pplied at settlement is the mid-market rate at settlement time plus the tier spread. ## Allowance accounting The free monthly conversion allowance is counted in"
+       },
+       {
+        "id": "glossary.md#b5",
+        "text": "as debited. Only settled transactions can be disputed. ## Tier The tariff level of a customer: Tier 1, Tier 2 or Tier 3. The tier determines spreads, allowances"
+       },
+       {
+        "id": "onboarding.md#b2",
+        "text": "ee consecutive months. Tier 3 is granted on application and is reviewed annually. ## Tier benefits A higher tier lowers the FX spread, raises the free monthly c"
+       }
+      ]
+     }
+    ],
+    "answer": "Your account is on **Tier 3**, so the documented FX spread is **0.5%**. The knowledge base does not give a complete figure for your free monthly conversion allowance.\n\n- **FX spread (Tier 3):** 0.5% over the mid-market rate. The tariff table lists this figure.\n- **Free monthly allowance (Tier 3):** The tariff table row is cut off at \"EUR 5\", so I can't confirm the amount. I won't guess it.\n- **How the spread applies:** According to the tariff documentation, the spread applies only after the free monthly allowance is used up. Conversions that fit within the remaining allowance carry no spread.\n\nSome documents in the knowledge base also appear to be incomplete, so I can't verify the allowance from them. Options:\n1. I can run one more documentation search for the allowance.\n2. I can escalate to a human agent to confirm the exact allowance and your remaining balance for this month.\n3. I can run a quote with `quote_fx` for a specific amount, which will show the allowance and spread applied to that conversion.\n\nWhich would you like?"
+   },
+   {
+    "profile": "clean",
+    "index": "kb_broken",
+    "top_k": 5,
+    "run": 2,
+    "request_id": "aa96288465484bd2",
+    "usage": {
+     "input_tokens": 13002,
+     "output_tokens": 934,
+     "model": "claude-haiku-5-5",
+     "cost_usd": 0.001767
+    },
+    "tools": [
+     "tool.get_account",
+     "tool.search_knowledge_base",
+     "tool.search_knowledge_base"
+    ],
+    "searches": [
+     {
+      "query": "FX spread tier3 free monthly conversion allowance",
+      "index": "kb_broken",
+      "top_k": 5,
+      "fragments": [
+       {
+        "id": "fx-guide.md#b2",
+        "text": " spread (a percentage of the gross converted amount); the free monthly conversion allowance. If the whole conversion fits within the customer's remaining monthl"
+       },
+       {
+        "id": "fx-operations.md#b3",
+        "text": "pplied at settlement is the mid-market rate at settlement time plus the tier spread. ## Allowance accounting The free monthly conversion allowance is counted in"
+       },
+       {
+        "id": "tariffs.md#b3",
+        "text": "austed. | Tier | FX spread | Free monthly conversion allowance | |---|---|---| | Tier 1 | 1.5% | EUR 500 | | Tier 2 | 0.9% | EUR 1,000 | | Tier 3 | 0.5% | EUR 5"
+       },
+       {
+        "id": "tariffs.md#b2",
+        "text": "aily and per-month transfer limits. ## FX spreads by tier The spread is applied over the mid-market rate only after the free monthly conversion allowance is exh"
+       },
+       {
+        "id": "fx-guide.md#b4",
+        "text": "id rate, spread percentage applied, allowance total and allowance used before this conversion, gross converted amount, spread amount, and the final credited amo"
+       }
+      ]
+     },
+     {
+      "query": "tariffs Tier 3 FX spread 0.5% free monthly conversion allowance EUR",
+      "index": "kb_broken",
+      "top_k": 5,
+      "fragments": [
+       {
+        "id": "tariffs.md#b3",
+        "text": "austed. | Tier | FX spread | Free monthly conversion allowance | |---|---|---| | Tier 1 | 1.5% | EUR 500 | | Tier 2 | 0.9% | EUR 1,000 | | Tier 3 | 0.5% | EUR 5"
+       },
+       {
+        "id": "limits.md#b3",
+        "text": "t | Monthly limit | |---|---|---| | Tier 1 | EUR 5,000 | EUR 50,000 | | Tier 2 | EUR 20,000 | EUR 200,000 | | Tier 3 | EUR 100,000 | EUR 1,000,000 | ## How the "
+       },
+       {
+        "id": "onboarding.md#b2",
+        "text": "ee consecutive months. Tier 3 is granted on application and is reviewed annually. ## Tier benefits A higher tier lowers the FX spread, raises the free monthly c"
+       },
+       {
+        "id": "tariffs.md#b4",
+        "text": ",000 | ## Transfer fees by type | Transfer type | Flat fee | Percentage fee | |---|---|---| | Internal | EUR 0.00 | 0% | | SEPA | EUR 0.35 | 0% | | SWIFT | EUR "
+       },
+       {
+        "id": "fx-operations.md#b3",
+        "text": "pplied at settlement is the mid-market rate at settlement time plus the tier spread. ## Allowance accounting The free monthly conversion allowance is counted in"
+       }
+      ]
+     }
+    ],
+    "answer": "Your account is on **Tier 3** (Clara Fischer, account ACC-1004).\n\n**FX spread:** The Verta tariff table lists **0.5%** for Tier 3. The same document says the spread applies only after the free monthly conversion allowance is used up.\n\n**Free monthly conversion allowance:** I could not confirm this figure. The retrieved text for Tier 3 cuts off at \"EUR 5\", and two searches returned the same truncated fragment. I won't guess the amount.\n\nThe knowledge base also appears to be returning incomplete data (the index is named \"kb_broken\"), so the allowance figure may be unreliable right now. Options:\n\n- **Ask again later.** The search may work once the index is repaired.\n- **Ask a human agent.** I can escalate so a team member confirms the exact Tier 3 allowance.\n- **Get a quote.** I can run an FX quote for a specific amount, which shows the spread and allowance applied to that conversion.\n\nWhich would you like?"
+   }
+  ]
+ },
+ "C-14": {
+  "message": "List the dispute reason codes, and tell me the dispute window for a duplicate charge.",
+  "customer_id": "CUS-0001",
+  "runs": [
+   {
+    "profile": "clean",
+    "index": "kb_broken",
+    "top_k": 1,
+    "run": 1,
+    "request_id": "c295b594e3d746f3",
+    "usage": {
+     "input_tokens": 11723,
+     "output_tokens": 1094,
+     "model": "claude-haiku-5-5",
+     "cost_usd": 0.001719
+    },
+    "tools": [
+     "tool.search_knowledge_base",
+     "tool.search_knowledge_base",
+     "tool.search_knowledge_base"
+    ],
+    "searches": [
+     {
+      "query": "dispute window duplicate charge",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragments": [
+       {
+        "id": "disputes-process.md#b1",
+        "text": "# Dispute handling process ## Raising a dispute A dispute is raised against a single settled transaction. The customer supplies the transaction reference and a "
+       }
+      ]
+     },
+     {
+      "query": "dispute time limit days after transaction duplicate charge reason code",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragments": [
+       {
+        "id": "disputes.md#b1",
+        "text": "# Payment dispute rules ## Reason codes and chargeback windows Each reason code has a window in days from the transaction date. A dispute opened after the windo"
+       }
+      ]
+     },
+     {
+      "query": "duplicate_charge chargeback window days",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragments": [
+       {
+        "id": "disputes.md#b2",
+        "text": "w closes is not eligible. | Reason code | Window (days) | |---|---| | fraud_card_not_present | 120 | | goods_not_received | 90 | | duplicate_charge | 60 | | ser"
+       }
+      ]
+     }
+    ],
+    "answer": "The dispute reason codes are:\n\n1. **duplicate_charge**: the same transaction was charged more than once\n2. **fraud_card_not_present**: a card payment made without the card being present, which you did not authorise\n3. **goods_not_received**: you paid for goods that did not arrive\n4. **service_not_rendered**: you paid for a service that was not provided\n5. **unauthorized_debit**: a debit from your account that you did not authorise\n\nFor a **duplicate charge**, the dispute window is **60 days** from the transaction date. A dispute opened after that window closes is not eligible. The knowledge-base excerpt I retrieved was cut off, so I could not confirm the window for service_not_rendered, and I have not stated one.\n\nIf you have a duplicate charge you want to dispute, send me the transaction and I will check its eligibility first."
+   },
+   {
+    "profile": "clean",
+    "index": "kb_broken",
+    "top_k": 1,
+    "run": 2,
+    "request_id": "9503eb649acc4bca",
+    "usage": {
+     "input_tokens": 8458,
+     "output_tokens": 715,
+     "model": "claude-haiku-5-5",
+     "cost_usd": 0.001203
+    },
+    "tools": [
+     "tool.search_knowledge_base",
+     "tool.search_knowledge_base"
+    ],
+    "searches": [
+     {
+      "query": "dispute window for duplicate charge",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragments": [
+       {
+        "id": "disputes-process.md#b1",
+        "text": "# Dispute handling process ## Raising a dispute A dispute is raised against a single settled transaction. The customer supplies the transaction reference and a "
+       }
+      ]
+     },
+     {
+      "query": "duplicate charge dispute time limit days",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragments": [
+       {
+        "id": "disputes-process.md#b1",
+        "text": "# Dispute handling process ## Raising a dispute A dispute is raised against a single settled transaction. The customer supplies the transaction reference and a "
+       }
+      ]
+     }
+    ],
+    "answer": "**Dispute reason codes:**\n- `duplicate_charge`\n- `fraud_card_not_present`\n- `goods_not_received`\n- `service_not_rendered`\n- `unauthorized_debit`\n\n**Dispute window for a duplicate charge:** I couldn't find this. The knowledge base returned only a partial fragment of the dispute process document, with no time limit. I won't state a window I can't verify.\n\nHere are two ways to get a definitive answer:\n- **Check a specific transaction:** Give me the transaction ID for the duplicate charge. I can check its dispute eligibility under `duplicate_charge`, which tests the window and status for that transaction.\n- **Escalate:** A human agent can confirm the window from current policy."
+   },
+   {
+    "profile": "clean",
+    "index": "kb_broken",
+    "top_k": 5,
+    "run": 1,
+    "request_id": "41d65a113b294075",
+    "usage": {
+     "input_tokens": 9498,
+     "output_tokens": 697,
+     "model": "claude-haiku-5-5",
+     "cost_usd": 0.001299
+    },
+    "tools": [
+     "tool.search_knowledge_base",
+     "tool.search_knowledge_base"
+    ],
+    "searches": [
+     {
+      "query": "dispute window duplicate charge",
+      "index": "kb_broken",
+      "top_k": 5,
+      "fragments": [
+       {
+        "id": "disputes-process.md#b1",
+        "text": "# Dispute handling process ## Raising a dispute A dispute is raised against a single settled transaction. The customer supplies the transaction reference and a "
+       },
+       {
+        "id": "disputes.md#b1",
+        "text": "# Payment dispute rules ## Reason codes and chargeback windows Each reason code has a window in days from the transaction date. A dispute opened after the windo"
+       },
+       {
+        "id": "glossary.md#b6",
+        "text": " and transfer limits. ## Provisional credit A temporary refund applied while a dispute is reviewed; reversed if the dispute is declined."
+       },
+       {
+        "id": "complaints.md#b1",
+        "text": "# Complaints ## Difference from a dispute A dispute concerns a specific transaction. A complaint concerns the service itself: a delay, an error, or the conduct "
+       },
+       {
+        "id": "escalation-policy.md#b6",
+        "text": "is told the expected response window."
+       }
+      ]
+     },
+     {
+      "query": "payment dispute rules reason codes chargeback windows days",
+      "index": "kb_broken",
+      "top_k": 5,
+      "fragments": [
+       {
+        "id": "disputes.md#b1",
+        "text": "# Payment dispute rules ## Reason codes and chargeback windows Each reason code has a window in days from the transaction date. A dispute opened after the windo"
+       },
+       {
+        "id": "disputes-process.md#b6",
+        "text": "ays for card reason codes and 20 business days for transfer reason codes. Complex cases involving a foreign acquirer may run to 45 calendar days; the customer i"
+       },
+       {
+        "id": "disputes-process.md#b1",
+        "text": "# Dispute handling process ## Raising a dispute A dispute is raised against a single settled transaction. The customer supplies the transaction reference and a "
+       },
+       {
+        "id": "glossary.md#b3",
+        "text": "ys, counted from the transaction date, during which a dispute may be raised under a given reason code. ## Reason code The classification of why a transaction is"
+       },
+       {
+        "id": "disputes.md#b2",
+        "text": "w closes is not eligible. | Reason code | Window (days) | |---|---| | fraud_card_not_present | 120 | | goods_not_received | 90 | | duplicate_charge | 60 | | ser"
+       }
+      ]
+     }
+    ],
+    "answer": "Verta supports five dispute reason codes:\n\n1. duplicate_charge\n2. fraud_card_not_present\n3. goods_not_received\n4. service_not_rendered\n5. unauthorized_debit\n\nThe dispute window for a **duplicate charge is 60 days** from the transaction date, according to the Verta dispute rules. A dispute opened after that window closes is not eligible.\n\nI could not retrieve the windows for the other four codes. The knowledge-base fragment that lists them was cut off, so I can't state those figures reliably. If you need them, I can search again or escalate to a human agent."
+   },
+   {
+    "profile": "clean",
+    "index": "kb_broken",
+    "top_k": 5,
+    "run": 2,
+    "request_id": "7b238ebd01b146e9",
+    "usage": {
+     "input_tokens": 13825,
+     "output_tokens": 1043,
+     "model": "claude-haiku-5-5",
+     "cost_usd": 0.001904
+    },
+    "tools": [
+     "tool.search_knowledge_base",
+     "tool.search_knowledge_base",
+     "tool.search_knowledge_base"
+    ],
+    "searches": [
+     {
+      "query": "dispute window duplicate charge",
+      "index": "kb_broken",
+      "top_k": 5,
+      "fragments": [
+       {
+        "id": "disputes-process.md#b1",
+        "text": "# Dispute handling process ## Raising a dispute A dispute is raised against a single settled transaction. The customer supplies the transaction reference and a "
+       },
+       {
+        "id": "disputes.md#b1",
+        "text": "# Payment dispute rules ## Reason codes and chargeback windows Each reason code has a window in days from the transaction date. A dispute opened after the windo"
+       },
+       {
+        "id": "glossary.md#b6",
+        "text": " and transfer limits. ## Provisional credit A temporary refund applied while a dispute is reviewed; reversed if the dispute is declined."
+       },
+       {
+        "id": "complaints.md#b1",
+        "text": "# Complaints ## Difference from a dispute A dispute concerns a specific transaction. A complaint concerns the service itself: a delay, an error, or the conduct "
+       },
+       {
+        "id": "escalation-policy.md#b6",
+        "text": "is told the expected response window."
+       }
+      ]
+     },
+     {
+      "query": "payment dispute rules reason codes chargeback windows days",
+      "index": "kb_broken",
+      "top_k": 5,
+      "fragments": [
+       {
+        "id": "disputes.md#b1",
+        "text": "# Payment dispute rules ## Reason codes and chargeback windows Each reason code has a window in days from the transaction date. A dispute opened after the windo"
+       },
+       {
+        "id": "disputes-process.md#b6",
+        "text": "ays for card reason codes and 20 business days for transfer reason codes. Complex cases involving a foreign acquirer may run to 45 calendar days; the customer i"
+       },
+       {
+        "id": "disputes-process.md#b1",
+        "text": "# Dispute handling process ## Raising a dispute A dispute is raised against a single settled transaction. The customer supplies the transaction reference and a "
+       },
+       {
+        "id": "glossary.md#b3",
+        "text": "ys, counted from the transaction date, during which a dispute may be raised under a given reason code. ## Reason code The classification of why a transaction is"
+       },
+       {
+        "id": "disputes.md#b2",
+        "text": "w closes is not eligible. | Reason code | Window (days) | |---|---| | fraud_card_not_present | 120 | | goods_not_received | 90 | | duplicate_charge | 60 | | ser"
+       }
+      ]
+     },
+     {
+      "query": "dispute window table service_not_rendered unauthorized_debit days",
+      "index": "kb_broken",
+      "top_k": 5,
+      "fragments": [
+       {
+        "id": "disputes.md#b1",
+        "text": "# Payment dispute rules ## Reason codes and chargeback windows Each reason code has a window in days from the transaction date. A dispute opened after the windo"
+       },
+       {
+        "id": "limits-operations.md#b6",
+        "text": "s are tracked on calendar days, not business days. The daily window runs from 00:00 to 23:59 CET."
+       },
+       {
+        "id": "disputes-process.md#b1",
+        "text": "# Dispute handling process ## Raising a dispute A dispute is raised against a single settled transaction. The customer supplies the transaction reference and a "
+       },
+       {
+        "id": "disputes.md#b2",
+        "text": "w closes is not eligible. | Reason code | Window (days) | |---|---| | fraud_card_not_present | 120 | | goods_not_received | 90 | | duplicate_charge | 60 | | ser"
+       },
+       {
+        "id": "glossary.md#b6",
+        "text": " and transfer limits. ## Provisional credit A temporary refund applied while a dispute is reviewed; reversed if the dispute is declined."
+       }
+      ]
+     }
+    ],
+    "answer": "Verta's dispute reason codes are:\n\n1. `duplicate_charge`\n2. `fraud_card_not_present`\n3. `goods_not_received`\n4. `service_not_rendered`\n5. `unauthorized_debit`\n\nThe dispute window for a **duplicate charge is 60 days** from the transaction date. A dispute opened after that window closes is not eligible.\n\nI could only retrieve part of the window table. I have the windows for `fraud_card_not_present` (120 days), `goods_not_received` (90 days), and `duplicate_charge` (60 days). The windows for `service_not_rendered` and `unauthorized_debit` were cut off in the results, so I can't state them. I can search the documentation again for those if you need them."
+   }
+  ]
+ },
+ "ran_at": "2026-10-18",
+ "stand_header": "X-Stand-Settings: {\"profile\":\"clean\",\"index\":...,\"top_k\":...}"
+}
