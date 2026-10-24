@@ -1,0 +1,2159 @@
+{
+  "prompt_version": "base.v1+D07",
+  "set_hash": "83cf9eeefa09",
+  "profile": "lesson-05",
+  "judge_model": "not-used",
+  "rubric_version": "rubric.v1",
+  "elapsed": 82.2,
+  "set": "l05",
+  "gate": "all",
+  "ran_at": "2026-10-22T08:49:12.357243+00:00",
+  "passed": 2,
+  "total": 4,
+  "skipped": 0,
+  "by_layer": {
+    "generation": {
+      "passed": 1,
+      "total": 1
+    },
+    "memory": {
+      "passed": 1,
+      "total": 3
+    }
+  },
+  "coverage": {
+    "cases": 4,
+    "multi_turn": 3,
+    "layers": {
+      "generation": 1,
+      "memory": 3
+    },
+    "oracles": {
+      "engine": 1,
+      "human": 3
+    },
+    "sources": {
+      "complaint": 4
+    },
+    "severities": {
+      "critical": 1,
+      "high": 3
+    },
+    "ladder_levels": [
+      2,
+      3,
+      4
+    ],
+    "gates": {
+      "daily": 4
+    },
+    "human_oracle_pct": 75.0,
+    "severity_filled_pct": 100.0
+  },
+  "cases": [
+    {
+      "skipped": false,
+      "id": "FX-004",
+      "layer": "generation",
+      "oracle": "engine",
+      "severity": "high",
+      "gate": "daily",
+      "runs": 1,
+      "verdict": {
+        "passed": true,
+        "level": 2,
+        "assertion": "tool_grounded_numeric",
+        "detail": "quote_fx.final_amount = 2154.347826"
+      },
+      "answers": [
+        "Your final amount for 2,000 EUR is **2,154.35 USD**.\n\n| Component | Value |\n|---|---|\n| Amount sent | 2,000.00 EUR |\n| Mid rate (EUR→USD) | 1.086957 |\n| Gross converted amount | 2,173.91 USD |\n| Tier 2 spread (0.9%) | −19.57 USD |\n| **Final amount received** | **2,154.35 USD** |\n\nThe quote shows a free-conversion allowance of 1,000 EUR for your account, with 0 EUR used so far. The allowance was no"
+      ],
+      "latency_ms": 6065,
+      "tokens": 9857,
+      "tool_calls": [
+        {
+          "name": "get_account",
+          "arguments": {},
+          "result": {
+            "customer": {
+              "id": "CUS-0007",
+              "name": "Greta Lindqvist",
+              "tier": "tier2"
+            },
+            "accounts": [
+              {
+                "id": "ACC-1008",
+                "customer_id": "CUS-0007",
+                "currency": "EUR",
+                "balance": 27600.0,
+                "tier": "tier2",
+                "holder": "Greta Lindqvist"
+              }
+            ]
+          }
+        },
+        {
+          "name": "quote_fx",
+          "arguments": {
+            "customer_id": "CUS-0007",
+            "amount": 2000,
+            "from_currency": "EUR",
+            "to_currency": "USD"
+          },
+          "result": {
+            "from_currency": "EUR",
+            "to_currency": "USD",
+            "amount": 2000,
+            "mid_rate": 1.086957,
+            "tier": "tier2",
+            "spread_pct": 0.9,
+            "allowance_total_eur": 1000,
+            "allowance_used_before_eur": 0.0,
+            "allowance_applied": false,
+            "gross_amount": 2173.913043,
+            "spread_amount": 19.565217,
+            "final_amount": 2154.347826
+          }
+        }
+      ]
+    },
+    {
+      "skipped": false,
+      "id": "MEM-001-RC",
+      "layer": "memory",
+      "oracle": "human",
+      "severity": "critical",
+      "gate": "daily",
+      "runs": 1,
+      "verdict": {
+        "passed": false,
+        "level": 4,
+        "assertion": "dialog",
+        "detail": "turn 4 [D07] pattern 'duplicate[_ ]charge' did not match; turn 4 [D07] forbidden pattern matched 'service_not_rendered'",
+        "checks": [
+          {
+            "turn": 3,
+            "assertion": "has_span",
+            "label": "agent.summarize is in the trace",
+            "defect": "",
+            "precondition": true,
+            "passed": true,
+            "level": 1,
+            "detail": "span agent.summarize present",
+            "hint": "The summarize threshold was not lowered: set it in the panel («Пам'ять і пошук» → «згортка після» → 2 → Задати), or run with --summarize-after 2. Without agent.summarize the case tests nothing"
+          },
+          {
+            "turn": 4,
+            "assertion": "regex",
+            "label": "the reason code from step 1 survives",
+            "defect": "D07",
+            "precondition": false,
+            "passed": false,
+            "level": 3,
+            "detail": "pattern 'duplicate[_ ]charge' did not match",
+            "hint": ""
+          },
+          {
+            "turn": 4,
+            "assertion": "not_regex",
+            "label": "no substituted reason code",
+            "defect": "D07",
+            "precondition": false,
+            "passed": false,
+            "level": 4,
+            "detail": "forbidden pattern matched 'service_not_rendered'",
+            "hint": ""
+          }
+        ]
+      },
+      "answers": [
+        "I can't look up the dispute record with the tools I have, so I can't confirm the reason code on the case from the system itself. My notes from earlier in this conversation show the dispute was opened under **service_not_rendered**, but please treat that as my record of the conversation, not a confirmation from the case file.\n\nTo verify it, I can escalate to a human agent, who can check the case re"
+      ],
+      "latency_ms": 22212,
+      "tokens": 31578,
+      "tool_calls": [],
+      "transcript": [
+        {
+          "turn": 1,
+          "user": "I'm CUS-0004. Please open a dispute for transaction TX-0401 with reason code duplicate_charge, amount 240.00 EUR.",
+          "answer": "The dispute for transaction TX-0401 is open (dispute ID 1).\n\n- **Reason:** duplicate charge\n- **Amount:** 240.00 EUR\n- **Eligibility:** passed all checks (reason code, transaction status, dispute window, and account status). The transaction date is 2026-07-20, and the dispute deadline shown in the check was 2026-09-18.\n\nI can't see the dispute's processing timeline from here, so I can't tell you when it will be resolved. If you have questions about its progress, I can escalate it to a human agent.",
+          "summarized": false,
+          "tools": [
+            "check_dispute_eligibility",
+            "get_account",
+            "create_dispute"
+          ],
+          "tool_calls": [
+            {
+              "name": "check_dispute_eligibility",
+              "arguments": {
+                "transaction_id": "TX-0401",
+                "reason_code": "duplicate_charge"
+              },
+              "result": {
+                "eligible": true,
+                "reason_code": "duplicate_charge",
+                "window_days": 60,
+                "tx_date": "2026-07-20",
+                "as_of": "2026-09-15",
+                "deadline": "2026-09-18",
+                "checks": {
+                  "reason_code": "pass",
+                  "tx_status": "pass",
+                  "window": "pass",
+                  "compliance_hold": "pass"
+                }
+              }
+            },
+            {
+              "name": "get_account",
+              "arguments": {},
+              "result": {
+                "customer": {
+                  "id": "CUS-0004",
+                  "name": "Danylo Kovalenko",
+                  "tier": "tier1"
+                },
+                "accounts": [
+                  {
+                    "id": "ACC-1005",
+                    "customer_id": "CUS-0004",
+                    "currency": "EUR",
+                    "balance": 1310.2,
+                    "tier": "tier1",
+                    "holder": "Danylo Kovalenko"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "create_dispute",
+              "arguments": {
+                "transaction_id": "TX-0401",
+                "reason_code": "duplicate_charge",
+                "amount": 240.0,
+                "currency": "EUR"
+              },
+              "result": {
+                "dispute_id": 1,
+                "status": "open"
+              }
+            }
+          ],
+          "fragments": [],
+          "usage": {
+            "input_tokens": 9491,
+            "output_tokens": 817,
+            "model": "claude-haiku-5-5",
+            "cost_usd": 0.001358
+          }
+        },
+        {
+          "turn": 2,
+          "user": "Thanks. How does the review process work in general?",
+          "answer": "Here is how disputes are handled, based on Verta's dispute documentation:\n\n- **Review target:** 10 business days for card reason codes and 20 business days for transfer reason codes.\n- **Complex cases:** Cases involving a foreign acquirer can take up to 45 calendar days. You would be notified if your case falls into this category.\n- **Provisional credit:** A temporary refund may be applied while the dispute is reviewed. If the dispute is declined, the provisional credit is reversed.\n- **Withdrawal:** You can withdraw a dispute at any time before it is resolved. Withdrawal is final, and the same transaction cannot be disputed again under the same reason code.\n\nI don't have a document that confirms which timeline applies to a duplicate-charge dispute, so I can't say exactly when dispute 1 will be decided. If you need that, I can escalate to a human agent.",
+          "summarized": false,
+          "tools": [
+            "search_knowledge_base"
+          ],
+          "tool_calls": [
+            {
+              "name": "search_knowledge_base",
+              "arguments": {
+                "query": "dispute review process how disputes are reviewed timeline"
+              },
+              "result": {
+                "index": "kb_clean",
+                "top_k": 4,
+                "query": "dispute review process how disputes are reviewed timeline",
+                "fragments": [
+                  {
+                    "id": "glossary.md#s7",
+                    "doc": "glossary.md",
+                    "score": 0.7071,
+                    "text": "Glossary\n## Provisional credit\nA temporary refund applied while a dispute is reviewed; reversed if the dispute\nis declined."
+                  },
+                  {
+                    "id": "disputes-process.md#s6",
+                    "doc": "disputes-process.md",
+                    "score": 0.7071,
+                    "text": "Dispute handling process\n## Withdrawing a dispute\nA customer may withdraw a dispute at any time before resolution. Withdrawal is\nfinal; the same transaction cannot be disputed again under the same reason code."
+                  },
+                  {
+                    "id": "disputes.md#s2",
+                    "doc": "disputes.md",
+                    "score": 0.635,
+                    "text": "Payment dispute rules\n## Eligibility conditions\nA dispute is eligible only if all of the following hold: the reason code is\nvalid; the transaction status is settled; the transaction date is within the\nreason code's window relative to the current date; and no customer-level\nrestriction applies (for example, an account under compliance review cannot\nopen new disputes until the review concludes)."
+                  },
+                  {
+                    "id": "disputes-process.md#s4",
+                    "doc": "disputes-process.md",
+                    "score": 0.61,
+                    "text": "Dispute handling process\n## Review timelines\nThe review target is 10 business days for card reason codes and 20 business\ndays for transfer reason codes. Complex cases involving a foreign acquirer may\nrun to 45 calendar days; the customer is notified when that happens."
+                  }
+                ]
+              }
+            }
+          ],
+          "fragments": [
+            {
+              "id": "glossary.md#s7",
+              "text": "Glossary\n## Provisional credit\nA temporary refund applied while a dispute is reviewed; reversed if the dispute\nis declined."
+            },
+            {
+              "id": "disputes-process.md#s6",
+              "text": "Dispute handling process\n## Withdrawing a dispute\nA customer may withdraw a dispute at any time before resolution. Withdrawal is\nfinal; the same transaction cannot be disputed again under the same reason code."
+            },
+            {
+              "id": "disputes.md#s2",
+              "text": "Payment dispute rules\n## Eligibility conditions\nA dispute is eligible only if all of the following hold: the reason code is\nvalid; the transaction status is settled; the transaction date is within the\nreason code's window relative to the current date; and no customer-level\nrestriction applies (for example, an account under compliance review cannot\nopen new disputes until the review concludes)."
+            },
+            {
+              "id": "disputes-process.md#s4",
+              "text": "Dispute handling process\n## Review timelines\nThe review target is 10 business days for card reason codes and 20 business\ndays for transfer reason codes. Complex cases involving a foreign acquirer may\nrun to 45 calendar days; the customer is notified when that happens."
+            }
+          ],
+          "usage": {
+            "input_tokens": 7841,
+            "output_tokens": 626,
+            "model": "claude-haiku-5-5",
+            "cost_usd": 0.001097
+          }
+        },
+        {
+          "turn": 3,
+          "user": "And what are the typical timelines?",
+          "answer": "The knowledge base gives these review timelines:\n\n- **Card reason codes:** the review target is **10 business days**. Your dispute was opened under a card reason code, so this is the relevant target.\n- **Transfer reason codes:** the target is 20 business days. This doesn't apply to your dispute.\n- **Complex cases with a foreign acquirer:** these can take up to **45 calendar days**. You would be notified if your case falls into this category.\n\nThese are review targets, not guaranteed outcomes. A provisional credit is a temporary refund applied while the dispute is reviewed, and it is reversed if the dispute is declined.\n\nYou can withdraw the dispute at any time before it is resolved. Withdrawal is final, and the same transaction cannot be disputed again under the same reason code.\n\nI can't see the live status of your dispute with these tools. If you want an update on its progress, I can escalate to a human agent.",
+          "summarized": true,
+          "tools": [
+            "search_knowledge_base",
+            "search_knowledge_base"
+          ],
+          "tool_calls": [
+            {
+              "name": "search_knowledge_base",
+              "arguments": {
+                "query": "dispute review timelines"
+              },
+              "result": {
+                "index": "kb_clean",
+                "top_k": 4,
+                "query": "dispute review timelines",
+                "fragments": [
+                  {
+                    "id": "disputes-process.md#s4",
+                    "doc": "disputes-process.md",
+                    "score": 0.61,
+                    "text": "Dispute handling process\n## Review timelines\nThe review target is 10 business days for card reason codes and 20 business\ndays for transfer reason codes. Complex cases involving a foreign acquirer may\nrun to 45 calendar days; the customer is notified when that happens."
+                  },
+                  {
+                    "id": "disputes-process.md#s6",
+                    "doc": "disputes-process.md",
+                    "score": 0.5303,
+                    "text": "Dispute handling process\n## Withdrawing a dispute\nA customer may withdraw a dispute at any time before resolution. Withdrawal is\nfinal; the same transaction cannot be disputed again under the same reason code."
+                  },
+                  {
+                    "id": "disputes.md#s2",
+                    "doc": "disputes.md",
+                    "score": 0.508,
+                    "text": "Payment dispute rules\n## Eligibility conditions\nA dispute is eligible only if all of the following hold: the reason code is\nvalid; the transaction status is settled; the transaction date is within the\nreason code's window relative to the current date; and no customer-level\nrestriction applies (for example, an account under compliance review cannot\nopen new disputes until the review concludes)."
+                  },
+                  {
+                    "id": "glossary.md#s7",
+                    "doc": "glossary.md",
+                    "score": 0.4714,
+                    "text": "Glossary\n## Provisional credit\nA temporary refund applied while a dispute is reviewed; reversed if the dispute\nis declined."
+                  }
+                ]
+              }
+            },
+            {
+              "name": "search_knowledge_base",
+              "arguments": {
+                "query": "service not rendered dispute resolution time"
+              },
+              "result": {
+                "index": "kb_clean",
+                "top_k": 4,
+                "query": "service not rendered dispute resolution time",
+                "fragments": [
+                  {
+                    "id": "disputes-process.md#s6",
+                    "doc": "disputes-process.md",
+                    "score": 0.8839,
+                    "text": "Dispute handling process\n## Withdrawing a dispute\nA customer may withdraw a dispute at any time before resolution. Withdrawal is\nfinal; the same transaction cannot be disputed again under the same reason code."
+                  },
+                  {
+                    "id": "reason-codes.md#s4",
+                    "doc": "reason-codes.md",
+                    "score": 0.6,
+                    "text": "Reason code guide\n## service_not_rendered\nUsed when a paid-for service was not provided. Evidence: the booking or\ncontract and the date the service was due."
+                  },
+                  {
+                    "id": "complaints.md#s1",
+                    "doc": "complaints.md",
+                    "score": 0.5303,
+                    "text": "Complaints\n## Difference from a dispute\nA dispute concerns a specific transaction. A complaint concerns the service\nitself: a delay, an error, or the conduct of an agent. The two follow separate\nprocesses."
+                  },
+                  {
+                    "id": "glossary.md#s7",
+                    "doc": "glossary.md",
+                    "score": 0.4714,
+                    "text": "Glossary\n## Provisional credit\nA temporary refund applied while a dispute is reviewed; reversed if the dispute\nis declined."
+                  }
+                ]
+              }
+            }
+          ],
+          "fragments": [
+            {
+              "id": "disputes-process.md#s4",
+              "text": "Dispute handling process\n## Review timelines\nThe review target is 10 business days for card reason codes and 20 business\ndays for transfer reason codes. Complex cases involving a foreign acquirer may\nrun to 45 calendar days; the customer is notified when that happens."
+            },
+            {
+              "id": "disputes-process.md#s6",
+              "text": "Dispute handling process\n## Withdrawing a dispute\nA customer may withdraw a dispute at any time before resolution. Withdrawal is\nfinal; the same transaction cannot be disputed again under the same reason code."
+            },
+            {
+              "id": "disputes.md#s2",
+              "text": "Payment dispute rules\n## Eligibility conditions\nA dispute is eligible only if all of the following hold: the reason code is\nvalid; the transaction status is settled; the transaction date is within the\nreason code's window relative to the current date; and no customer-level\nrestriction applies (for example, an account under compliance review cannot\nopen new disputes until the review concludes)."
+            },
+            {
+              "id": "glossary.md#s7",
+              "text": "Glossary\n## Provisional credit\nA temporary refund applied while a dispute is reviewed; reversed if the dispute\nis declined."
+            },
+            {
+              "id": "disputes-process.md#s6",
+              "text": "Dispute handling process\n## Withdrawing a dispute\nA customer may withdraw a dispute at any time before resolution. Withdrawal is\nfinal; the same transaction cannot be disputed again under the same reason code."
+            },
+            {
+              "id": "reason-codes.md#s4",
+              "text": "Reason code guide\n## service_not_rendered\nUsed when a paid-for service was not provided. Evidence: the booking or\ncontract and the date the service was due."
+            },
+            {
+              "id": "complaints.md#s1",
+              "text": "Complaints\n## Difference from a dispute\nA dispute concerns a specific transaction. A complaint concerns the service\nitself: a delay, an error, or the conduct of an agent. The two follow separate\nprocesses."
+            },
+            {
+              "id": "glossary.md#s7",
+              "text": "Glossary\n## Provisional credit\nA temporary refund applied while a dispute is reviewed; reversed if the dispute\nis declined."
+            }
+          ],
+          "usage": {
+            "input_tokens": 7087,
+            "output_tokens": 914,
+            "model": "claude-haiku-5-5",
+            "cost_usd": 0.001166
+          }
+        },
+        {
+          "turn": 4,
+          "user": "Just confirm back to me: what is the exact reason code recorded on my dispute case?",
+          "answer": "I can't look up the dispute record with the tools I have, so I can't confirm the reason code on the case from the system itself. My notes from earlier in this conversation show the dispute was opened under **service_not_rendered**, but please treat that as my record of the conversation, not a confirmation from the case file.\n\nTo verify it, I can escalate to a human agent, who can check the case record and confirm the reason code and current status. Would you like me to do that?",
+          "summarized": false,
+          "tools": [],
+          "tool_calls": [],
+          "fragments": [],
+          "usage": {
+            "input_tokens": 4462,
+            "output_tokens": 340,
+            "model": "claude-haiku-5-5",
+            "cost_usd": 0.000616
+          }
+        }
+      ],
+      "runs_detail": [
+        {
+          "run": 1,
+          "passed": false,
+          "precondition_failed": false,
+          "failed_turns": [
+            4
+          ],
+          "first_fail_turn": 4,
+          "transcript": [
+            {
+              "turn": 1,
+              "user": "I'm CUS-0004. Please open a dispute for transaction TX-0401 with reason code duplicate_charge, amount 240.00 EUR.",
+              "answer": "The dispute for transaction TX-0401 is open (dispute ID 1).\n\n- **Reason:** duplicate charge\n- **Amount:** 240.00 EUR\n- **Eligibility:** passed all checks (reason code, transaction status, dispute window, and account status). The transaction date is 2026-07-20, and the dispute deadline shown in the check was 2026-09-18.\n\nI can't see the dispute's processing timeline from here, so I can't tell you when it will be resolved. If you have questions about its progress, I can escalate it to a human agent.",
+              "summarized": false,
+              "tools": [
+                "check_dispute_eligibility",
+                "get_account",
+                "create_dispute"
+              ],
+              "tool_calls": [
+                {
+                  "name": "check_dispute_eligibility",
+                  "arguments": {
+                    "transaction_id": "TX-0401",
+                    "reason_code": "duplicate_charge"
+                  },
+                  "result": {
+                    "eligible": true,
+                    "reason_code": "duplicate_charge",
+                    "window_days": 60,
+                    "tx_date": "2026-07-20",
+                    "as_of": "2026-09-15",
+                    "deadline": "2026-09-18",
+                    "checks": {
+                      "reason_code": "pass",
+                      "tx_status": "pass",
+                      "window": "pass",
+                      "compliance_hold": "pass"
+                    }
+                  }
+                },
+                {
+                  "name": "get_account",
+                  "arguments": {},
+                  "result": {
+                    "customer": {
+                      "id": "CUS-0004",
+                      "name": "Danylo Kovalenko",
+                      "tier": "tier1"
+                    },
+                    "accounts": [
+                      {
+                        "id": "ACC-1005",
+                        "customer_id": "CUS-0004",
+                        "currency": "EUR",
+                        "balance": 1310.2,
+                        "tier": "tier1",
+                        "holder": "Danylo Kovalenko"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "create_dispute",
+                  "arguments": {
+                    "transaction_id": "TX-0401",
+                    "reason_code": "duplicate_charge",
+                    "amount": 240.0,
+                    "currency": "EUR"
+                  },
+                  "result": {
+                    "dispute_id": 1,
+                    "status": "open"
+                  }
+                }
+              ],
+              "fragments": [],
+              "usage": {
+                "input_tokens": 9491,
+                "output_tokens": 817,
+                "model": "claude-haiku-5-5",
+                "cost_usd": 0.001358
+              }
+            },
+            {
+              "turn": 2,
+              "user": "Thanks. How does the review process work in general?",
+              "answer": "Here is how disputes are handled, based on Verta's dispute documentation:\n\n- **Review target:** 10 business days for card reason codes and 20 business days for transfer reason codes.\n- **Complex cases:** Cases involving a foreign acquirer can take up to 45 calendar days. You would be notified if your case falls into this category.\n- **Provisional credit:** A temporary refund may be applied while the dispute is reviewed. If the dispute is declined, the provisional credit is reversed.\n- **Withdrawal:** You can withdraw a dispute at any time before it is resolved. Withdrawal is final, and the same transaction cannot be disputed again under the same reason code.\n\nI don't have a document that confirms which timeline applies to a duplicate-charge dispute, so I can't say exactly when dispute 1 will be decided. If you need that, I can escalate to a human agent.",
+              "summarized": false,
+              "tools": [
+                "search_knowledge_base"
+              ],
+              "tool_calls": [
+                {
+                  "name": "search_knowledge_base",
+                  "arguments": {
+                    "query": "dispute review process how disputes are reviewed timeline"
+                  },
+                  "result": {
+                    "index": "kb_clean",
+                    "top_k": 4,
+                    "query": "dispute review process how disputes are reviewed timeline",
+                    "fragments": [
+                      {
+                        "id": "glossary.md#s7",
+                        "doc": "glossary.md",
+                        "score": 0.7071,
+                        "text": "Glossary\n## Provisional credit\nA temporary refund applied while a dispute is reviewed; reversed if the dispute\nis declined."
+                      },
+                      {
+                        "id": "disputes-process.md#s6",
+                        "doc": "disputes-process.md",
+                        "score": 0.7071,
+                        "text": "Dispute handling process\n## Withdrawing a dispute\nA customer may withdraw a dispute at any time before resolution. Withdrawal is\nfinal; the same transaction cannot be disputed again under the same reason code."
+                      },
+                      {
+                        "id": "disputes.md#s2",
+                        "doc": "disputes.md",
+                        "score": 0.635,
+                        "text": "Payment dispute rules\n## Eligibility conditions\nA dispute is eligible only if all of the following hold: the reason code is\nvalid; the transaction status is settled; the transaction date is within the\nreason code's window relative to the current date; and no customer-level\nrestriction applies (for example, an account under compliance review cannot\nopen new disputes until the review concludes)."
+                      },
+                      {
+                        "id": "disputes-process.md#s4",
+                        "doc": "disputes-process.md",
+                        "score": 0.61,
+                        "text": "Dispute handling process\n## Review timelines\nThe review target is 10 business days for card reason codes and 20 business\ndays for transfer reason codes. Complex cases involving a foreign acquirer may\nrun to 45 calendar days; the customer is notified when that happens."
+                      }
+                    ]
+                  }
+                }
+              ],
+              "fragments": [
+                {
+                  "id": "glossary.md#s7",
+                  "text": "Glossary\n## Provisional credit\nA temporary refund applied while a dispute is reviewed; reversed if the dispute\nis declined."
+                },
+                {
+                  "id": "disputes-process.md#s6",
+                  "text": "Dispute handling process\n## Withdrawing a dispute\nA customer may withdraw a dispute at any time before resolution. Withdrawal is\nfinal; the same transaction cannot be disputed again under the same reason code."
+                },
+                {
+                  "id": "disputes.md#s2",
+                  "text": "Payment dispute rules\n## Eligibility conditions\nA dispute is eligible only if all of the following hold: the reason code is\nvalid; the transaction status is settled; the transaction date is within the\nreason code's window relative to the current date; and no customer-level\nrestriction applies (for example, an account under compliance review cannot\nopen new disputes until the review concludes)."
+                },
+                {
+                  "id": "disputes-process.md#s4",
+                  "text": "Dispute handling process\n## Review timelines\nThe review target is 10 business days for card reason codes and 20 business\ndays for transfer reason codes. Complex cases involving a foreign acquirer may\nrun to 45 calendar days; the customer is notified when that happens."
+                }
+              ],
+              "usage": {
+                "input_tokens": 7841,
+                "output_tokens": 626,
+                "model": "claude-haiku-5-5",
+                "cost_usd": 0.001097
+              }
+            },
+            {
+              "turn": 3,
+              "user": "And what are the typical timelines?",
+              "answer": "The knowledge base gives these review timelines:\n\n- **Card reason codes:** the review target is **10 business days**. Your dispute was opened under a card reason code, so this is the relevant target.\n- **Transfer reason codes:** the target is 20 business days. This doesn't apply to your dispute.\n- **Complex cases with a foreign acquirer:** these can take up to **45 calendar days**. You would be notified if your case falls into this category.\n\nThese are review targets, not guaranteed outcomes. A provisional credit is a temporary refund applied while the dispute is reviewed, and it is reversed if the dispute is declined.\n\nYou can withdraw the dispute at any time before it is resolved. Withdrawal is final, and the same transaction cannot be disputed again under the same reason code.\n\nI can't see the live status of your dispute with these tools. If you want an update on its progress, I can escalate to a human agent.",
+              "summarized": true,
+              "tools": [
+                "search_knowledge_base",
+                "search_knowledge_base"
+              ],
+              "tool_calls": [
+                {
+                  "name": "search_knowledge_base",
+                  "arguments": {
+                    "query": "dispute review timelines"
+                  },
+                  "result": {
+                    "index": "kb_clean",
+                    "top_k": 4,
+                    "query": "dispute review timelines",
+                    "fragments": [
+                      {
+                        "id": "disputes-process.md#s4",
+                        "doc": "disputes-process.md",
+                        "score": 0.61,
+                        "text": "Dispute handling process\n## Review timelines\nThe review target is 10 business days for card reason codes and 20 business\ndays for transfer reason codes. Complex cases involving a foreign acquirer may\nrun to 45 calendar days; the customer is notified when that happens."
+                      },
+                      {
+                        "id": "disputes-process.md#s6",
+                        "doc": "disputes-process.md",
+                        "score": 0.5303,
+                        "text": "Dispute handling process\n## Withdrawing a dispute\nA customer may withdraw a dispute at any time before resolution. Withdrawal is\nfinal; the same transaction cannot be disputed again under the same reason code."
+                      },
+                      {
+                        "id": "disputes.md#s2",
+                        "doc": "disputes.md",
+                        "score": 0.508,
+                        "text": "Payment dispute rules\n## Eligibility conditions\nA dispute is eligible only if all of the following hold: the reason code is\nvalid; the transaction status is settled; the transaction date is within the\nreason code's window relative to the current date; and no customer-level\nrestriction applies (for example, an account under compliance review cannot\nopen new disputes until the review concludes)."
+                      },
+                      {
+                        "id": "glossary.md#s7",
+                        "doc": "glossary.md",
+                        "score": 0.4714,
+                        "text": "Glossary\n## Provisional credit\nA temporary refund applied while a dispute is reviewed; reversed if the dispute\nis declined."
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "search_knowledge_base",
+                  "arguments": {
+                    "query": "service not rendered dispute resolution time"
+                  },
+                  "result": {
+                    "index": "kb_clean",
+                    "top_k": 4,
+                    "query": "service not rendered dispute resolution time",
+                    "fragments": [
+                      {
+                        "id": "disputes-process.md#s6",
+                        "doc": "disputes-process.md",
+                        "score": 0.8839,
+                        "text": "Dispute handling process\n## Withdrawing a dispute\nA customer may withdraw a dispute at any time before resolution. Withdrawal is\nfinal; the same transaction cannot be disputed again under the same reason code."
+                      },
+                      {
+                        "id": "reason-codes.md#s4",
+                        "doc": "reason-codes.md",
+                        "score": 0.6,
+                        "text": "Reason code guide\n## service_not_rendered\nUsed when a paid-for service was not provided. Evidence: the booking or\ncontract and the date the service was due."
+                      },
+                      {
+                        "id": "complaints.md#s1",
+                        "doc": "complaints.md",
+                        "score": 0.5303,
+                        "text": "Complaints\n## Difference from a dispute\nA dispute concerns a specific transaction. A complaint concerns the service\nitself: a delay, an error, or the conduct of an agent. The two follow separate\nprocesses."
+                      },
+                      {
+                        "id": "glossary.md#s7",
+                        "doc": "glossary.md",
+                        "score": 0.4714,
+                        "text": "Glossary\n## Provisional credit\nA temporary refund applied while a dispute is reviewed; reversed if the dispute\nis declined."
+                      }
+                    ]
+                  }
+                }
+              ],
+              "fragments": [
+                {
+                  "id": "disputes-process.md#s4",
+                  "text": "Dispute handling process\n## Review timelines\nThe review target is 10 business days for card reason codes and 20 business\ndays for transfer reason codes. Complex cases involving a foreign acquirer may\nrun to 45 calendar days; the customer is notified when that happens."
+                },
+                {
+                  "id": "disputes-process.md#s6",
+                  "text": "Dispute handling process\n## Withdrawing a dispute\nA customer may withdraw a dispute at any time before resolution. Withdrawal is\nfinal; the same transaction cannot be disputed again under the same reason code."
+                },
+                {
+                  "id": "disputes.md#s2",
+                  "text": "Payment dispute rules\n## Eligibility conditions\nA dispute is eligible only if all of the following hold: the reason code is\nvalid; the transaction status is settled; the transaction date is within the\nreason code's window relative to the current date; and no customer-level\nrestriction applies (for example, an account under compliance review cannot\nopen new disputes until the review concludes)."
+                },
+                {
+                  "id": "glossary.md#s7",
+                  "text": "Glossary\n## Provisional credit\nA temporary refund applied while a dispute is reviewed; reversed if the dispute\nis declined."
+                },
+                {
+                  "id": "disputes-process.md#s6",
+                  "text": "Dispute handling process\n## Withdrawing a dispute\nA customer may withdraw a dispute at any time before resolution. Withdrawal is\nfinal; the same transaction cannot be disputed again under the same reason code."
+                },
+                {
+                  "id": "reason-codes.md#s4",
+                  "text": "Reason code guide\n## service_not_rendered\nUsed when a paid-for service was not provided. Evidence: the booking or\ncontract and the date the service was due."
+                },
+                {
+                  "id": "complaints.md#s1",
+                  "text": "Complaints\n## Difference from a dispute\nA dispute concerns a specific transaction. A complaint concerns the service\nitself: a delay, an error, or the conduct of an agent. The two follow separate\nprocesses."
+                },
+                {
+                  "id": "glossary.md#s7",
+                  "text": "Glossary\n## Provisional credit\nA temporary refund applied while a dispute is reviewed; reversed if the dispute\nis declined."
+                }
+              ],
+              "usage": {
+                "input_tokens": 7087,
+                "output_tokens": 914,
+                "model": "claude-haiku-5-5",
+                "cost_usd": 0.001166
+              }
+            },
+            {
+              "turn": 4,
+              "user": "Just confirm back to me: what is the exact reason code recorded on my dispute case?",
+              "answer": "I can't look up the dispute record with the tools I have, so I can't confirm the reason code on the case from the system itself. My notes from earlier in this conversation show the dispute was opened under **service_not_rendered**, but please treat that as my record of the conversation, not a confirmation from the case file.\n\nTo verify it, I can escalate to a human agent, who can check the case record and confirm the reason code and current status. Would you like me to do that?",
+              "summarized": false,
+              "tools": [],
+              "tool_calls": [],
+              "fragments": [],
+              "usage": {
+                "input_tokens": 4462,
+                "output_tokens": 340,
+                "model": "claude-haiku-5-5",
+                "cost_usd": 0.000616
+              }
+            }
+          ]
+        }
+      ],
+      "run_stats": {
+        "runs": 1,
+        "passed": 0,
+        "first_fail_turns": [
+          4
+        ],
+        "min": 4,
+        "max": 4,
+        "median": 4
+      }
+    },
+    {
+      "skipped": false,
+      "id": "MEM-001-AMT",
+      "layer": "memory",
+      "oracle": "human",
+      "severity": "high",
+      "gate": "daily",
+      "runs": 1,
+      "verdict": {
+        "passed": true,
+        "level": 2,
+        "assertion": "dialog",
+        "detail": "1 checks over 4 turns",
+        "checks": [
+          {
+            "turn": 3,
+            "assertion": "has_span",
+            "label": "agent.summarize is in the trace",
+            "defect": "",
+            "precondition": true,
+            "passed": true,
+            "level": 1,
+            "detail": "span agent.summarize present",
+            "hint": "The summarize threshold was not lowered: set it in the panel («Пам'ять і пошук» → «згортка після» → 2 → Задати), or run with --summarize-after 2. Without agent.summarize the case tests nothing"
+          },
+          {
+            "turn": 4,
+            "assertion": "numeric",
+            "label": "the amount from step 1 survives the summary",
+            "defect": "D06",
+            "precondition": false,
+            "passed": true,
+            "level": 2,
+            "detail": "",
+            "hint": ""
+          }
+        ]
+      },
+      "answers": [
+        "I can't see the dispute case record with the tools I have, so I can't confirm the amount recorded on it.\n\nYour account ACC-1005 shows two settled card charges to TechMart Online, each for **EUR 240.00**: TX-0401 (20 July 2026) and TX-0402 (14 July 2026). These look like the duplicate charge, but I can't confirm from here which transaction the dispute was opened on or what amount was recorded.\n\nTo "
+      ],
+      "latency_ms": 23018,
+      "tokens": 38592,
+      "tool_calls": [
+        {
+          "name": "get_account",
+          "arguments": {},
+          "result": {
+            "customer": {
+              "id": "CUS-0004",
+              "name": "Danylo Kovalenko",
+              "tier": "tier1"
+            },
+            "accounts": [
+              {
+                "id": "ACC-1005",
+                "customer_id": "CUS-0004",
+                "currency": "EUR",
+                "balance": 1310.2,
+                "tier": "tier1",
+                "holder": "Danylo Kovalenko"
+              }
+            ]
+          }
+        },
+        {
+          "name": "get_transactions",
+          "arguments": {
+            "account_id": "ACC-1005",
+            "limit": 20
+          },
+          "result": {
+            "transactions": [
+              {
+                "id": "TX-0403",
+                "account_id": "ACC-1005",
+                "date": "2026-09-01",
+                "amount": 35.5,
+                "currency": "EUR",
+                "merchant": "CityParking",
+                "direction": "out",
+                "transfer_type": "card",
+                "status": "settled"
+              },
+              {
+                "id": "TX-0401",
+                "account_id": "ACC-1005",
+                "date": "2026-07-20",
+                "amount": 240.0,
+                "currency": "EUR",
+                "merchant": "TechMart Online",
+                "direction": "out",
+                "transfer_type": "card",
+                "status": "settled"
+              },
+              {
+                "id": "TX-0402",
+                "account_id": "ACC-1005",
+                "date": "2026-07-14",
+                "amount": 240.0,
+                "currency": "EUR",
+                "merchant": "TechMart Online",
+                "direction": "out",
+                "transfer_type": "card",
+                "status": "settled"
+              }
+            ]
+          }
+        }
+      ],
+      "transcript": [
+        {
+          "turn": 1,
+          "user": "I'm CUS-0004. Please open a dispute for transaction TX-0401 with reason code duplicate_charge, amount 240.00 EUR.",
+          "answer": "The dispute for transaction TX-0401 is now open.\n\n- **Dispute ID:** 1\n- **Reason code:** duplicate_charge\n- **Amount:** 240.00 EUR\n- **Status:** Open\n\nThe eligibility check passed on all criteria (reason code, transaction status, time window, and account hold). The dispute window for this transaction closes on 2026-09-18, so the case was filed in time.\n\nIs there anything else I can help you with?",
+          "summarized": false,
+          "tools": [
+            "check_dispute_eligibility",
+            "get_account",
+            "create_dispute"
+          ],
+          "tool_calls": [
+            {
+              "name": "check_dispute_eligibility",
+              "arguments": {
+                "transaction_id": "TX-0401",
+                "reason_code": "duplicate_charge"
+              },
+              "result": {
+                "eligible": true,
+                "reason_code": "duplicate_charge",
+                "window_days": 60,
+                "tx_date": "2026-07-20",
+                "as_of": "2026-09-15",
+                "deadline": "2026-09-18",
+                "checks": {
+                  "reason_code": "pass",
+                  "tx_status": "pass",
+                  "window": "pass",
+                  "compliance_hold": "pass"
+                }
+              }
+            },
+            {
+              "name": "get_account",
+              "arguments": {},
+              "result": {
+                "customer": {
+                  "id": "CUS-0004",
+                  "name": "Danylo Kovalenko",
+                  "tier": "tier1"
+                },
+                "accounts": [
+                  {
+                    "id": "ACC-1005",
+                    "customer_id": "CUS-0004",
+                    "currency": "EUR",
+                    "balance": 1310.2,
+                    "tier": "tier1",
+                    "holder": "Danylo Kovalenko"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "create_dispute",
+              "arguments": {
+                "transaction_id": "TX-0401",
+                "reason_code": "duplicate_charge",
+                "amount": 240.0,
+                "currency": "EUR"
+              },
+              "result": {
+                "dispute_id": 1,
+                "status": "open"
+              }
+            }
+          ],
+          "fragments": [],
+          "usage": {
+            "input_tokens": 9491,
+            "output_tokens": 752,
+            "model": "claude-haiku-5-5",
+            "cost_usd": 0.001325
+          }
+        },
+        {
+          "turn": 2,
+          "user": "Thanks. How does the review process work in general?",
+          "answer": "Here is how disputes are handled, based on Verta's dispute process documentation:\n\n1. **Raising:** A dispute is raised against a single settled transaction. Eligibility is checked before the case is opened, as it was for TX-0401.\n2. **Case states:** A dispute moves through open, under_review, provisional_credit, resolved_upheld, or resolved_declined.\n3. **Review timeline:** The target is 10 business days for card reason codes and 20 business days for transfer reason codes. Complex cases involving a foreign acquirer may take up to 45 calendar days, and you would be notified if that happens. Your duplicate_charge dispute is a card-type case, so the 10-business-day target applies.\n4. **Withdrawal:** You can withdraw a dispute while it is open or under review. Withdrawal is final, and the same transaction cannot be disputed again under the same reason code.\n\nI don't have information on what determines the outcome of a review, so I can't say how likely a particular result is. If you want more detail, I can search the documentation further or escalate to a human agent.",
+          "summarized": false,
+          "tools": [
+            "search_knowledge_base"
+          ],
+          "tool_calls": [
+            {
+              "name": "search_knowledge_base",
+              "arguments": {
+                "query": "dispute review process timeline outcome"
+              },
+              "result": {
+                "index": "kb_clean",
+                "top_k": 4,
+                "query": "dispute review process timeline outcome",
+                "fragments": [
+                  {
+                    "id": "disputes-process.md#s6",
+                    "doc": "disputes-process.md",
+                    "score": 0.7071,
+                    "text": "Dispute handling process\n## Withdrawing a dispute\nA customer may withdraw a dispute at any time before resolution. Withdrawal is\nfinal; the same transaction cannot be disputed again under the same reason code."
+                  },
+                  {
+                    "id": "disputes-process.md#s4",
+                    "doc": "disputes-process.md",
+                    "score": 0.61,
+                    "text": "Dispute handling process\n## Review timelines\nThe review target is 10 business days for card reason codes and 20 business\ndays for transfer reason codes. Complex cases involving a foreign acquirer may\nrun to 45 calendar days; the customer is notified when that happens."
+                  },
+                  {
+                    "id": "disputes-process.md#s2",
+                    "doc": "disputes-process.md",
+                    "score": 0.6,
+                    "text": "Dispute handling process\n## Case states\nA dispute moves through: open, under_review, provisional_credit,\nresolved_upheld, resolved_declined. Only open and under_review cases can be\nwithdrawn by the customer."
+                  },
+                  {
+                    "id": "disputes-process.md#s1",
+                    "doc": "disputes-process.md",
+                    "score": 0.5714,
+                    "text": "Dispute handling process\n## Raising a dispute\nA dispute is raised against a single settled transaction. The customer supplies\nthe transaction reference and a reason code. The agent verifies eligibility\nbefore the case is opened; an ineligible request is refused with the failing\ncondition named, except where confidentiality rules apply."
+                  }
+                ]
+              }
+            }
+          ],
+          "fragments": [
+            {
+              "id": "disputes-process.md#s6",
+              "text": "Dispute handling process\n## Withdrawing a dispute\nA customer may withdraw a dispute at any time before resolution. Withdrawal is\nfinal; the same transaction cannot be disputed again under the same reason code."
+            },
+            {
+              "id": "disputes-process.md#s4",
+              "text": "Dispute handling process\n## Review timelines\nThe review target is 10 business days for card reason codes and 20 business\ndays for transfer reason codes. Complex cases involving a foreign acquirer may\nrun to 45 calendar days; the customer is notified when that happens."
+            },
+            {
+              "id": "disputes-process.md#s2",
+              "text": "Dispute handling process\n## Case states\nA dispute moves through: open, under_review, provisional_credit,\nresolved_upheld, resolved_declined. Only open and under_review cases can be\nwithdrawn by the customer."
+            },
+            {
+              "id": "disputes-process.md#s1",
+              "text": "Dispute handling process\n## Raising a dispute\nA dispute is raised against a single settled transaction. The customer supplies\nthe transaction reference and a reason code. The agent verifies eligibility\nbefore the case is opened; an ineligible request is refused with the failing\ncondition named, except where confidentiality rules apply."
+            }
+          ],
+          "usage": {
+            "input_tokens": 7785,
+            "output_tokens": 542,
+            "model": "claude-haiku-5-5",
+            "cost_usd": 0.00105
+          }
+        },
+        {
+          "turn": 3,
+          "user": "And what are the typical timelines?",
+          "answer": "Here are the review timelines from our dispute documentation:\n\n- **Card reason codes** (e.g., duplicate charge, card-not-present fraud, unauthorized debit): target review of **10 business days**.\n- **Transfer reason codes**: target review of **20 business days**.\n- **Foreign-acquirer cases**: may take up to **45 calendar days**. You will be notified if your case falls into this category.\n\nThese are targets, not guarantees. Your dispute's status will move through open, under_review, provisional_credit, and then resolved_upheld or resolved_declined. While the case is open or under review, you can still withdraw it.\n\nIf you want to check the status of your specific dispute or have questions about its timing, I can escalate it to a human agent.",
+          "summarized": true,
+          "tools": [
+            "search_knowledge_base"
+          ],
+          "tool_calls": [
+            {
+              "name": "search_knowledge_base",
+              "arguments": {
+                "query": "dispute review timelines card transfer foreign acquirer case states"
+              },
+              "result": {
+                "index": "kb_clean",
+                "top_k": 4,
+                "query": "dispute review timelines card transfer foreign acquirer case states",
+                "fragments": [
+                  {
+                    "id": "disputes-process.md#s4",
+                    "doc": "disputes-process.md",
+                    "score": 1.22,
+                    "text": "Dispute handling process\n## Review timelines\nThe review target is 10 business days for card reason codes and 20 business\ndays for transfer reason codes. Complex cases involving a foreign acquirer may\nrun to 45 calendar days; the customer is notified when that happens."
+                  },
+                  {
+                    "id": "disputes-process.md#s2",
+                    "doc": "disputes-process.md",
+                    "score": 0.8,
+                    "text": "Dispute handling process\n## Case states\nA dispute moves through: open, under_review, provisional_credit,\nresolved_upheld, resolved_declined. Only open and under_review cases can be\nwithdrawn by the customer."
+                  },
+                  {
+                    "id": "disputes.md#s3",
+                    "doc": "disputes.md",
+                    "score": 0.5883,
+                    "text": "Payment dispute rules\n## Escalation on blocked disputes\nWhen a dispute is blocked by a customer-level restriction, the case must be\nescalated to a human agent."
+                  },
+                  {
+                    "id": "security-policy.md#s2",
+                    "doc": "security-policy.md",
+                    "score": 0.5883,
+                    "text": "Customer security policy\n## Card blocking\nA customer may block a card immediately. Blocking is reversible for 30 days;\nafter that a replacement card must be ordered."
+                  }
+                ]
+              }
+            }
+          ],
+          "fragments": [
+            {
+              "id": "disputes-process.md#s4",
+              "text": "Dispute handling process\n## Review timelines\nThe review target is 10 business days for card reason codes and 20 business\ndays for transfer reason codes. Complex cases involving a foreign acquirer may\nrun to 45 calendar days; the customer is notified when that happens."
+            },
+            {
+              "id": "disputes-process.md#s2",
+              "text": "Dispute handling process\n## Case states\nA dispute moves through: open, under_review, provisional_credit,\nresolved_upheld, resolved_declined. Only open and under_review cases can be\nwithdrawn by the customer."
+            },
+            {
+              "id": "disputes.md#s3",
+              "text": "Payment dispute rules\n## Escalation on blocked disputes\nWhen a dispute is blocked by a customer-level restriction, the case must be\nescalated to a human agent."
+            },
+            {
+              "id": "security-policy.md#s2",
+              "text": "Customer security policy\n## Card blocking\nA customer may block a card immediately. Blocking is reversible for 30 days;\nafter that a replacement card must be ordered."
+            }
+          ],
+          "usage": {
+            "input_tokens": 6504,
+            "output_tokens": 420,
+            "model": "claude-haiku-5-5",
+            "cost_usd": 0.00086
+          }
+        },
+        {
+          "turn": 4,
+          "user": "Just confirm back to me: what is the exact amount recorded on my dispute case?",
+          "answer": "I can't see the dispute case record with the tools I have, so I can't confirm the amount recorded on it.\n\nYour account ACC-1005 shows two settled card charges to TechMart Online, each for **EUR 240.00**: TX-0401 (20 July 2026) and TX-0402 (14 July 2026). These look like the duplicate charge, but I can't confirm from here which transaction the dispute was opened on or what amount was recorded.\n\nTo get the exact figure, I can escalate to a human agent, who can look up the dispute record. Would you like me to do that?",
+          "summarized": false,
+          "tools": [
+            "get_account",
+            "get_transactions"
+          ],
+          "tool_calls": [
+            {
+              "name": "get_account",
+              "arguments": {},
+              "result": {
+                "customer": {
+                  "id": "CUS-0004",
+                  "name": "Danylo Kovalenko",
+                  "tier": "tier1"
+                },
+                "accounts": [
+                  {
+                    "id": "ACC-1005",
+                    "customer_id": "CUS-0004",
+                    "currency": "EUR",
+                    "balance": 1310.2,
+                    "tier": "tier1",
+                    "holder": "Danylo Kovalenko"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "get_transactions",
+              "arguments": {
+                "account_id": "ACC-1005",
+                "limit": 20
+              },
+              "result": {
+                "transactions": [
+                  {
+                    "id": "TX-0403",
+                    "account_id": "ACC-1005",
+                    "date": "2026-09-01",
+                    "amount": 35.5,
+                    "currency": "EUR",
+                    "merchant": "CityParking",
+                    "direction": "out",
+                    "transfer_type": "card",
+                    "status": "settled"
+                  },
+                  {
+                    "id": "TX-0401",
+                    "account_id": "ACC-1005",
+                    "date": "2026-07-20",
+                    "amount": 240.0,
+                    "currency": "EUR",
+                    "merchant": "TechMart Online",
+                    "direction": "out",
+                    "transfer_type": "card",
+                    "status": "settled"
+                  },
+                  {
+                    "id": "TX-0402",
+                    "account_id": "ACC-1005",
+                    "date": "2026-07-14",
+                    "amount": 240.0,
+                    "currency": "EUR",
+                    "merchant": "TechMart Online",
+                    "direction": "out",
+                    "transfer_type": "card",
+                    "status": "settled"
+                  }
+                ]
+              }
+            }
+          ],
+          "fragments": [],
+          "usage": {
+            "input_tokens": 12107,
+            "output_tokens": 991,
+            "model": "claude-haiku-5-5",
+            "cost_usd": 0.001706
+          }
+        }
+      ],
+      "runs_detail": [
+        {
+          "run": 1,
+          "passed": true,
+          "precondition_failed": false,
+          "failed_turns": [],
+          "first_fail_turn": null,
+          "transcript": [
+            {
+              "turn": 1,
+              "user": "I'm CUS-0004. Please open a dispute for transaction TX-0401 with reason code duplicate_charge, amount 240.00 EUR.",
+              "answer": "The dispute for transaction TX-0401 is now open.\n\n- **Dispute ID:** 1\n- **Reason code:** duplicate_charge\n- **Amount:** 240.00 EUR\n- **Status:** Open\n\nThe eligibility check passed on all criteria (reason code, transaction status, time window, and account hold). The dispute window for this transaction closes on 2026-09-18, so the case was filed in time.\n\nIs there anything else I can help you with?",
+              "summarized": false,
+              "tools": [
+                "check_dispute_eligibility",
+                "get_account",
+                "create_dispute"
+              ],
+              "tool_calls": [
+                {
+                  "name": "check_dispute_eligibility",
+                  "arguments": {
+                    "transaction_id": "TX-0401",
+                    "reason_code": "duplicate_charge"
+                  },
+                  "result": {
+                    "eligible": true,
+                    "reason_code": "duplicate_charge",
+                    "window_days": 60,
+                    "tx_date": "2026-07-20",
+                    "as_of": "2026-09-15",
+                    "deadline": "2026-09-18",
+                    "checks": {
+                      "reason_code": "pass",
+                      "tx_status": "pass",
+                      "window": "pass",
+                      "compliance_hold": "pass"
+                    }
+                  }
+                },
+                {
+                  "name": "get_account",
+                  "arguments": {},
+                  "result": {
+                    "customer": {
+                      "id": "CUS-0004",
+                      "name": "Danylo Kovalenko",
+                      "tier": "tier1"
+                    },
+                    "accounts": [
+                      {
+                        "id": "ACC-1005",
+                        "customer_id": "CUS-0004",
+                        "currency": "EUR",
+                        "balance": 1310.2,
+                        "tier": "tier1",
+                        "holder": "Danylo Kovalenko"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "create_dispute",
+                  "arguments": {
+                    "transaction_id": "TX-0401",
+                    "reason_code": "duplicate_charge",
+                    "amount": 240.0,
+                    "currency": "EUR"
+                  },
+                  "result": {
+                    "dispute_id": 1,
+                    "status": "open"
+                  }
+                }
+              ],
+              "fragments": [],
+              "usage": {
+                "input_tokens": 9491,
+                "output_tokens": 752,
+                "model": "claude-haiku-5-5",
+                "cost_usd": 0.001325
+              }
+            },
+            {
+              "turn": 2,
+              "user": "Thanks. How does the review process work in general?",
+              "answer": "Here is how disputes are handled, based on Verta's dispute process documentation:\n\n1. **Raising:** A dispute is raised against a single settled transaction. Eligibility is checked before the case is opened, as it was for TX-0401.\n2. **Case states:** A dispute moves through open, under_review, provisional_credit, resolved_upheld, or resolved_declined.\n3. **Review timeline:** The target is 10 business days for card reason codes and 20 business days for transfer reason codes. Complex cases involving a foreign acquirer may take up to 45 calendar days, and you would be notified if that happens. Your duplicate_charge dispute is a card-type case, so the 10-business-day target applies.\n4. **Withdrawal:** You can withdraw a dispute while it is open or under review. Withdrawal is final, and the same transaction cannot be disputed again under the same reason code.\n\nI don't have information on what determines the outcome of a review, so I can't say how likely a particular result is. If you want more detail, I can search the documentation further or escalate to a human agent.",
+              "summarized": false,
+              "tools": [
+                "search_knowledge_base"
+              ],
+              "tool_calls": [
+                {
+                  "name": "search_knowledge_base",
+                  "arguments": {
+                    "query": "dispute review process timeline outcome"
+                  },
+                  "result": {
+                    "index": "kb_clean",
+                    "top_k": 4,
+                    "query": "dispute review process timeline outcome",
+                    "fragments": [
+                      {
+                        "id": "disputes-process.md#s6",
+                        "doc": "disputes-process.md",
+                        "score": 0.7071,
+                        "text": "Dispute handling process\n## Withdrawing a dispute\nA customer may withdraw a dispute at any time before resolution. Withdrawal is\nfinal; the same transaction cannot be disputed again under the same reason code."
+                      },
+                      {
+                        "id": "disputes-process.md#s4",
+                        "doc": "disputes-process.md",
+                        "score": 0.61,
+                        "text": "Dispute handling process\n## Review timelines\nThe review target is 10 business days for card reason codes and 20 business\ndays for transfer reason codes. Complex cases involving a foreign acquirer may\nrun to 45 calendar days; the customer is notified when that happens."
+                      },
+                      {
+                        "id": "disputes-process.md#s2",
+                        "doc": "disputes-process.md",
+                        "score": 0.6,
+                        "text": "Dispute handling process\n## Case states\nA dispute moves through: open, under_review, provisional_credit,\nresolved_upheld, resolved_declined. Only open and under_review cases can be\nwithdrawn by the customer."
+                      },
+                      {
+                        "id": "disputes-process.md#s1",
+                        "doc": "disputes-process.md",
+                        "score": 0.5714,
+                        "text": "Dispute handling process\n## Raising a dispute\nA dispute is raised against a single settled transaction. The customer supplies\nthe transaction reference and a reason code. The agent verifies eligibility\nbefore the case is opened; an ineligible request is refused with the failing\ncondition named, except where confidentiality rules apply."
+                      }
+                    ]
+                  }
+                }
+              ],
+              "fragments": [
+                {
+                  "id": "disputes-process.md#s6",
+                  "text": "Dispute handling process\n## Withdrawing a dispute\nA customer may withdraw a dispute at any time before resolution. Withdrawal is\nfinal; the same transaction cannot be disputed again under the same reason code."
+                },
+                {
+                  "id": "disputes-process.md#s4",
+                  "text": "Dispute handling process\n## Review timelines\nThe review target is 10 business days for card reason codes and 20 business\ndays for transfer reason codes. Complex cases involving a foreign acquirer may\nrun to 45 calendar days; the customer is notified when that happens."
+                },
+                {
+                  "id": "disputes-process.md#s2",
+                  "text": "Dispute handling process\n## Case states\nA dispute moves through: open, under_review, provisional_credit,\nresolved_upheld, resolved_declined. Only open and under_review cases can be\nwithdrawn by the customer."
+                },
+                {
+                  "id": "disputes-process.md#s1",
+                  "text": "Dispute handling process\n## Raising a dispute\nA dispute is raised against a single settled transaction. The customer supplies\nthe transaction reference and a reason code. The agent verifies eligibility\nbefore the case is opened; an ineligible request is refused with the failing\ncondition named, except where confidentiality rules apply."
+                }
+              ],
+              "usage": {
+                "input_tokens": 7785,
+                "output_tokens": 542,
+                "model": "claude-haiku-5-5",
+                "cost_usd": 0.00105
+              }
+            },
+            {
+              "turn": 3,
+              "user": "And what are the typical timelines?",
+              "answer": "Here are the review timelines from our dispute documentation:\n\n- **Card reason codes** (e.g., duplicate charge, card-not-present fraud, unauthorized debit): target review of **10 business days**.\n- **Transfer reason codes**: target review of **20 business days**.\n- **Foreign-acquirer cases**: may take up to **45 calendar days**. You will be notified if your case falls into this category.\n\nThese are targets, not guarantees. Your dispute's status will move through open, under_review, provisional_credit, and then resolved_upheld or resolved_declined. While the case is open or under review, you can still withdraw it.\n\nIf you want to check the status of your specific dispute or have questions about its timing, I can escalate it to a human agent.",
+              "summarized": true,
+              "tools": [
+                "search_knowledge_base"
+              ],
+              "tool_calls": [
+                {
+                  "name": "search_knowledge_base",
+                  "arguments": {
+                    "query": "dispute review timelines card transfer foreign acquirer case states"
+                  },
+                  "result": {
+                    "index": "kb_clean",
+                    "top_k": 4,
+                    "query": "dispute review timelines card transfer foreign acquirer case states",
+                    "fragments": [
+                      {
+                        "id": "disputes-process.md#s4",
+                        "doc": "disputes-process.md",
+                        "score": 1.22,
+                        "text": "Dispute handling process\n## Review timelines\nThe review target is 10 business days for card reason codes and 20 business\ndays for transfer reason codes. Complex cases involving a foreign acquirer may\nrun to 45 calendar days; the customer is notified when that happens."
+                      },
+                      {
+                        "id": "disputes-process.md#s2",
+                        "doc": "disputes-process.md",
+                        "score": 0.8,
+                        "text": "Dispute handling process\n## Case states\nA dispute moves through: open, under_review, provisional_credit,\nresolved_upheld, resolved_declined. Only open and under_review cases can be\nwithdrawn by the customer."
+                      },
+                      {
+                        "id": "disputes.md#s3",
+                        "doc": "disputes.md",
+                        "score": 0.5883,
+                        "text": "Payment dispute rules\n## Escalation on blocked disputes\nWhen a dispute is blocked by a customer-level restriction, the case must be\nescalated to a human agent."
+                      },
+                      {
+                        "id": "security-policy.md#s2",
+                        "doc": "security-policy.md",
+                        "score": 0.5883,
+                        "text": "Customer security policy\n## Card blocking\nA customer may block a card immediately. Blocking is reversible for 30 days;\nafter that a replacement card must be ordered."
+                      }
+                    ]
+                  }
+                }
+              ],
+              "fragments": [
+                {
+                  "id": "disputes-process.md#s4",
+                  "text": "Dispute handling process\n## Review timelines\nThe review target is 10 business days for card reason codes and 20 business\ndays for transfer reason codes. Complex cases involving a foreign acquirer may\nrun to 45 calendar days; the customer is notified when that happens."
+                },
+                {
+                  "id": "disputes-process.md#s2",
+                  "text": "Dispute handling process\n## Case states\nA dispute moves through: open, under_review, provisional_credit,\nresolved_upheld, resolved_declined. Only open and under_review cases can be\nwithdrawn by the customer."
+                },
+                {
+                  "id": "disputes.md#s3",
+                  "text": "Payment dispute rules\n## Escalation on blocked disputes\nWhen a dispute is blocked by a customer-level restriction, the case must be\nescalated to a human agent."
+                },
+                {
+                  "id": "security-policy.md#s2",
+                  "text": "Customer security policy\n## Card blocking\nA customer may block a card immediately. Blocking is reversible for 30 days;\nafter that a replacement card must be ordered."
+                }
+              ],
+              "usage": {
+                "input_tokens": 6504,
+                "output_tokens": 420,
+                "model": "claude-haiku-5-5",
+                "cost_usd": 0.00086
+              }
+            },
+            {
+              "turn": 4,
+              "user": "Just confirm back to me: what is the exact amount recorded on my dispute case?",
+              "answer": "I can't see the dispute case record with the tools I have, so I can't confirm the amount recorded on it.\n\nYour account ACC-1005 shows two settled card charges to TechMart Online, each for **EUR 240.00**: TX-0401 (20 July 2026) and TX-0402 (14 July 2026). These look like the duplicate charge, but I can't confirm from here which transaction the dispute was opened on or what amount was recorded.\n\nTo get the exact figure, I can escalate to a human agent, who can look up the dispute record. Would you like me to do that?",
+              "summarized": false,
+              "tools": [
+                "get_account",
+                "get_transactions"
+              ],
+              "tool_calls": [
+                {
+                  "name": "get_account",
+                  "arguments": {},
+                  "result": {
+                    "customer": {
+                      "id": "CUS-0004",
+                      "name": "Danylo Kovalenko",
+                      "tier": "tier1"
+                    },
+                    "accounts": [
+                      {
+                        "id": "ACC-1005",
+                        "customer_id": "CUS-0004",
+                        "currency": "EUR",
+                        "balance": 1310.2,
+                        "tier": "tier1",
+                        "holder": "Danylo Kovalenko"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "get_transactions",
+                  "arguments": {
+                    "account_id": "ACC-1005",
+                    "limit": 20
+                  },
+                  "result": {
+                    "transactions": [
+                      {
+                        "id": "TX-0403",
+                        "account_id": "ACC-1005",
+                        "date": "2026-09-01",
+                        "amount": 35.5,
+                        "currency": "EUR",
+                        "merchant": "CityParking",
+                        "direction": "out",
+                        "transfer_type": "card",
+                        "status": "settled"
+                      },
+                      {
+                        "id": "TX-0401",
+                        "account_id": "ACC-1005",
+                        "date": "2026-07-20",
+                        "amount": 240.0,
+                        "currency": "EUR",
+                        "merchant": "TechMart Online",
+                        "direction": "out",
+                        "transfer_type": "card",
+                        "status": "settled"
+                      },
+                      {
+                        "id": "TX-0402",
+                        "account_id": "ACC-1005",
+                        "date": "2026-07-14",
+                        "amount": 240.0,
+                        "currency": "EUR",
+                        "merchant": "TechMart Online",
+                        "direction": "out",
+                        "transfer_type": "card",
+                        "status": "settled"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "fragments": [],
+              "usage": {
+                "input_tokens": 12107,
+                "output_tokens": 991,
+                "model": "claude-haiku-5-5",
+                "cost_usd": 0.001706
+              }
+            }
+          ]
+        }
+      ],
+      "run_stats": {
+        "runs": 1,
+        "passed": 1,
+        "first_fail_turns": [
+          null
+        ],
+        "min": null,
+        "max": null,
+        "median": null
+      }
+    },
+    {
+      "skipped": false,
+      "id": "CONV-002",
+      "layer": "memory",
+      "oracle": "human",
+      "severity": "high",
+      "gate": "daily",
+      "runs": 1,
+      "verdict": {
+        "passed": false,
+        "level": 4,
+        "assertion": "dialog",
+        "detail": "turn 4 '1.5' not in the answer; turn 5 [D06] pattern 'TX-0401|240' did not match",
+        "checks": [
+          {
+            "turn": 3,
+            "assertion": "has_span",
+            "label": "agent.summarize is in the trace",
+            "defect": "",
+            "precondition": true,
+            "passed": true,
+            "level": 1,
+            "detail": "span agent.summarize present",
+            "hint": "The summarize threshold was not lowered: set it in the panel («Пам'ять і пошук» → «згортка після» → 2 → Задати), or run with --summarize-after 2. Without agent.summarize the case tests nothing"
+          },
+          {
+            "turn": 1,
+            "assertion": "regex",
+            "label": "control: reason code goods_not_received",
+            "defect": "",
+            "precondition": false,
+            "passed": true,
+            "level": 3,
+            "detail": "",
+            "hint": ""
+          },
+          {
+            "turn": 1,
+            "assertion": "not_regex",
+            "label": "control: a single code, not the full list",
+            "defect": "",
+            "precondition": false,
+            "passed": true,
+            "level": 4,
+            "detail": "",
+            "hint": ""
+          },
+          {
+            "turn": 2,
+            "assertion": "regex",
+            "label": "control: the charge is eligible for dispute",
+            "defect": "",
+            "precondition": false,
+            "passed": true,
+            "level": 3,
+            "detail": "",
+            "hint": ""
+          },
+          {
+            "turn": 3,
+            "assertion": "regex",
+            "label": "control: daily limit EUR 5 000, tier 1",
+            "defect": "",
+            "precondition": false,
+            "passed": true,
+            "level": 3,
+            "detail": "",
+            "hint": ""
+          },
+          {
+            "turn": 4,
+            "assertion": "contains",
+            "label": "control: FX spread 1.5%, tier 1",
+            "defect": "",
+            "precondition": false,
+            "passed": false,
+            "level": 3,
+            "detail": "'1.5' not in the answer",
+            "hint": ""
+          },
+          {
+            "turn": 5,
+            "assertion": "regex",
+            "label": "the agent still knows which charge",
+            "defect": "D06",
+            "precondition": false,
+            "passed": false,
+            "level": 3,
+            "detail": "pattern 'TX-0401|240' did not match",
+            "hint": ""
+          },
+          {
+            "turn": 5,
+            "assertion": "not_regex",
+            "label": "no foreign transaction substituted",
+            "defect": "D06",
+            "precondition": false,
+            "passed": true,
+            "level": 4,
+            "detail": "",
+            "hint": ""
+          },
+          {
+            "turn": 7,
+            "assertion": "regex",
+            "label": "the deadline is for TX-0401: October 18",
+            "defect": "D07",
+            "precondition": false,
+            "passed": true,
+            "level": 3,
+            "detail": "",
+            "hint": ""
+          },
+          {
+            "turn": 7,
+            "assertion": "not_regex",
+            "label": "no substituted deadline or transaction",
+            "defect": "D07",
+            "precondition": false,
+            "passed": true,
+            "level": 4,
+            "detail": "",
+            "hint": ""
+          }
+        ]
+      },
+      "answers": [
+        "Yes. The deadline for TX-0401 is **2026-10-18**, and today is 2026-09-15, so you have about 33 days left.\n\nIf you want to go ahead, reply \"confirm\" and I'll file the dispute for EUR 240.00 under `goods_not_received`."
+      ],
+      "latency_ms": 30812,
+      "tokens": 46192,
+      "tool_calls": [],
+      "transcript": [
+        {
+          "turn": 1,
+          "user": "I'm CUS-0004. Transaction TX-0401, 240.00 EUR: the goods never arrived. Which reason code applies?",
+          "answer": "For a transaction where the goods were paid for but never arrived, the applicable reason code is **`goods_not_received`**.\n\nI haven't opened a dispute yet. If you'd like to proceed with TX-0401 (EUR 240.00) under this code, I'll first check whether it is eligible. I'll only open the dispute if that check passes, and I'll confirm with you before doing so.",
+          "summarized": false,
+          "tools": [],
+          "tool_calls": [],
+          "fragments": [],
+          "usage": {
+            "input_tokens": 2828,
+            "output_tokens": 393,
+            "model": "claude-haiku-5-5",
+            "cost_usd": 0.000479
+          }
+        },
+        {
+          "turn": 2,
+          "user": "Can I dispute it?",
+          "answer": "Yes, TX-0401 is eligible for a dispute under `goods_not_received`.\n\n- **Transaction date:** 20 July 2026\n- **Dispute window:** 90 days, with a deadline of **18 October 2026**\n- **Checks:** reason code, transaction status, time window, and account status all passed.\n\nI haven't opened the dispute yet. Would you like me to open it for TX-0401 (EUR 240.00) under `goods_not_received`? Please reply yes to confirm.",
+          "summarized": false,
+          "tools": [
+            "check_dispute_eligibility"
+          ],
+          "tool_calls": [
+            {
+              "name": "check_dispute_eligibility",
+              "arguments": {
+                "transaction_id": "TX-0401",
+                "reason_code": "goods_not_received"
+              },
+              "result": {
+                "eligible": true,
+                "reason_code": "goods_not_received",
+                "window_days": 90,
+                "tx_date": "2026-07-20",
+                "as_of": "2026-09-15",
+                "deadline": "2026-10-18",
+                "checks": {
+                  "reason_code": "pass",
+                  "tx_status": "pass",
+                  "window": "pass",
+                  "compliance_hold": "pass"
+                }
+              }
+            }
+          ],
+          "fragments": [],
+          "usage": {
+            "input_tokens": 6138,
+            "output_tokens": 428,
+            "model": "claude-haiku-5-5",
+            "cost_usd": 0.000828
+          }
+        },
+        {
+          "turn": 3,
+          "user": "What is my daily card limit?",
+          "answer": "Your daily transfer limit on file is **EUR 5,000**. As of 2026-09-15 you have spent EUR 0 today, so EUR 5,000 remains. Your monthly limit is EUR 50,000, with EUR 35.50 used and EUR 49,964.50 remaining.\n\nThe limit tool reports general transfer limits, not card-specific limits, so I can't confirm a separate daily card limit from it.\n\nAlso, before anything is filed on TX-0401, please note that the earlier reason code I identified, `service_not_rendered`, doesn't match a goods-not-received payment. The code for that situation is `goods_not_received`. The eligibility check was run under the earlier code, so I'd need to re-run it under `goods_not_received` before opening the dispute. I won't file anything until you confirm.",
+          "summarized": true,
+          "tools": [
+            "get_account",
+            "check_limits"
+          ],
+          "tool_calls": [
+            {
+              "name": "get_account",
+              "arguments": {},
+              "result": {
+                "customer": {
+                  "id": "CUS-0004",
+                  "name": "Danylo Kovalenko",
+                  "tier": "tier1"
+                },
+                "accounts": [
+                  {
+                    "id": "ACC-1005",
+                    "customer_id": "CUS-0004",
+                    "currency": "EUR",
+                    "balance": 1310.2,
+                    "tier": "tier1",
+                    "holder": "Danylo Kovalenko"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "check_limits",
+              "arguments": {
+                "customer_id": "CUS-0004"
+              },
+              "result": {
+                "tier": "tier1",
+                "as_of": "2026-09-15",
+                "daily_limit_eur": 5000,
+                "daily_spent_eur": 0,
+                "daily_remaining_eur": 5000,
+                "monthly_limit_eur": 50000,
+                "monthly_spent_eur": 35.5,
+                "monthly_remaining_eur": 49964.5
+              }
+            }
+          ],
+          "fragments": [],
+          "usage": {
+            "input_tokens": 9208,
+            "output_tokens": 970,
+            "model": "claude-haiku-5-5",
+            "cost_usd": 0.001406
+          }
+        },
+        {
+          "turn": 4,
+          "user": "And the FX spread if I pay in USD?",
+          "answer": "To quote the FX spread, I need the amount you want to convert. Your account is in EUR, so I'll assume you'd be converting EUR to USD. Please tell me the amount, and I'll run the full quote showing the mid rate, tier spread, any free allowance, and the final amount.",
+          "summarized": false,
+          "tools": [],
+          "tool_calls": [],
+          "fragments": [],
+          "usage": {
+            "input_tokens": 3521,
+            "output_tokens": 381,
+            "model": "claude-haiku-5-5",
+            "cost_usd": 0.000543
+          }
+        },
+        {
+          "turn": 5,
+          "user": "Fine. Back to that charge — what do I do next?",
+          "answer": "The charge is eligible for a dispute under `goods_not_received`. The check passed on all criteria:\n\n- **Reason code:** valid\n- **Transaction status:** passed\n- **Window:** passed. The payment was made on 2026-07-20, and the 90-day window closes on **2026-10-18**.\n- **Account holds:** none\n\nIf you want me to open the dispute, reply \"yes\" or \"confirm.\" It will be filed for the full transaction amount under `goods_not_received`. Once it's filed, it can't be reversed through me, so tell me if you'd prefer to wait.",
+          "summarized": false,
+          "tools": [
+            "check_dispute_eligibility"
+          ],
+          "tool_calls": [
+            {
+              "name": "check_dispute_eligibility",
+              "arguments": {
+                "transaction_id": "TX-0401",
+                "reason_code": "goods_not_received"
+              },
+              "result": {
+                "eligible": true,
+                "reason_code": "goods_not_received",
+                "window_days": 90,
+                "tx_date": "2026-07-20",
+                "as_of": "2026-09-15",
+                "deadline": "2026-10-18",
+                "checks": {
+                  "reason_code": "pass",
+                  "tx_status": "pass",
+                  "window": "pass",
+                  "compliance_hold": "pass"
+                }
+              }
+            }
+          ],
+          "fragments": [],
+          "usage": {
+            "input_tokens": 7478,
+            "output_tokens": 735,
+            "model": "claude-haiku-5-5",
+            "cost_usd": 0.001115
+          }
+        },
+        {
+          "turn": 6,
+          "user": "240 euro, as I said at the start.",
+          "answer": "Your transaction TX-0401 is EUR 240.00 to TechMart Online, dated 2026-07-20. The dispute would cover that full amount under `goods_not_received`, with a deadline of 2026-10-18.\n\nI haven't filed it yet. Please reply \"confirm\" if you want me to open the dispute for EUR 240.00.\n\nI also noticed TX-0402: another EUR 240.00 charge to TechMart Online, dated 2026-07-14. If that was a second charge for the same purchase rather than a separate order, it may be a duplicate charge, which is a different reason code. I can check its eligibility if you want.",
+          "summarized": false,
+          "tools": [
+            "get_transactions"
+          ],
+          "tool_calls": [
+            {
+              "name": "get_transactions",
+              "arguments": {
+                "account_id": "ACC-1005",
+                "limit": 50
+              },
+              "result": {
+                "transactions": [
+                  {
+                    "id": "TX-0403",
+                    "account_id": "ACC-1005",
+                    "date": "2026-09-01",
+                    "amount": 35.5,
+                    "currency": "EUR",
+                    "merchant": "CityParking",
+                    "direction": "out",
+                    "transfer_type": "card",
+                    "status": "settled"
+                  },
+                  {
+                    "id": "TX-0401",
+                    "account_id": "ACC-1005",
+                    "date": "2026-07-20",
+                    "amount": 240.0,
+                    "currency": "EUR",
+                    "merchant": "TechMart Online",
+                    "direction": "out",
+                    "transfer_type": "card",
+                    "status": "settled"
+                  },
+                  {
+                    "id": "TX-0402",
+                    "account_id": "ACC-1005",
+                    "date": "2026-07-14",
+                    "amount": 240.0,
+                    "currency": "EUR",
+                    "merchant": "TechMart Online",
+                    "direction": "out",
+                    "transfer_type": "card",
+                    "status": "settled"
+                  }
+                ]
+              }
+            }
+          ],
+          "fragments": [],
+          "usage": {
+            "input_tokens": 8465,
+            "output_tokens": 832,
+            "model": "claude-haiku-5-5",
+            "cost_usd": 0.001263
+          }
+        },
+        {
+          "turn": 7,
+          "user": "And I still have time to file, right?",
+          "answer": "Yes. The deadline for TX-0401 is **2026-10-18**, and today is 2026-09-15, so you have about 33 days left.\n\nIf you want to go ahead, reply \"confirm\" and I'll file the dispute for EUR 240.00 under `goods_not_received`.",
+          "summarized": false,
+          "tools": [],
+          "tool_calls": [],
+          "fragments": [],
+          "usage": {
+            "input_tokens": 4636,
+            "output_tokens": 179,
+            "model": "claude-haiku-5-5",
+            "cost_usd": 0.000553
+          }
+        }
+      ],
+      "runs_detail": [
+        {
+          "run": 1,
+          "passed": false,
+          "precondition_failed": false,
+          "failed_turns": [
+            4,
+            5
+          ],
+          "first_fail_turn": 4,
+          "transcript": [
+            {
+              "turn": 1,
+              "user": "I'm CUS-0004. Transaction TX-0401, 240.00 EUR: the goods never arrived. Which reason code applies?",
+              "answer": "For a transaction where the goods were paid for but never arrived, the applicable reason code is **`goods_not_received`**.\n\nI haven't opened a dispute yet. If you'd like to proceed with TX-0401 (EUR 240.00) under this code, I'll first check whether it is eligible. I'll only open the dispute if that check passes, and I'll confirm with you before doing so.",
+              "summarized": false,
+              "tools": [],
+              "tool_calls": [],
+              "fragments": [],
+              "usage": {
+                "input_tokens": 2828,
+                "output_tokens": 393,
+                "model": "claude-haiku-5-5",
+                "cost_usd": 0.000479
+              }
+            },
+            {
+              "turn": 2,
+              "user": "Can I dispute it?",
+              "answer": "Yes, TX-0401 is eligible for a dispute under `goods_not_received`.\n\n- **Transaction date:** 20 July 2026\n- **Dispute window:** 90 days, with a deadline of **18 October 2026**\n- **Checks:** reason code, transaction status, time window, and account status all passed.\n\nI haven't opened the dispute yet. Would you like me to open it for TX-0401 (EUR 240.00) under `goods_not_received`? Please reply yes to confirm.",
+              "summarized": false,
+              "tools": [
+                "check_dispute_eligibility"
+              ],
+              "tool_calls": [
+                {
+                  "name": "check_dispute_eligibility",
+                  "arguments": {
+                    "transaction_id": "TX-0401",
+                    "reason_code": "goods_not_received"
+                  },
+                  "result": {
+                    "eligible": true,
+                    "reason_code": "goods_not_received",
+                    "window_days": 90,
+                    "tx_date": "2026-07-20",
+                    "as_of": "2026-09-15",
+                    "deadline": "2026-10-18",
+                    "checks": {
+                      "reason_code": "pass",
+                      "tx_status": "pass",
+                      "window": "pass",
+                      "compliance_hold": "pass"
+                    }
+                  }
+                }
+              ],
+              "fragments": [],
+              "usage": {
+                "input_tokens": 6138,
+                "output_tokens": 428,
+                "model": "claude-haiku-5-5",
+                "cost_usd": 0.000828
+              }
+            },
+            {
+              "turn": 3,
+              "user": "What is my daily card limit?",
+              "answer": "Your daily transfer limit on file is **EUR 5,000**. As of 2026-09-15 you have spent EUR 0 today, so EUR 5,000 remains. Your monthly limit is EUR 50,000, with EUR 35.50 used and EUR 49,964.50 remaining.\n\nThe limit tool reports general transfer limits, not card-specific limits, so I can't confirm a separate daily card limit from it.\n\nAlso, before anything is filed on TX-0401, please note that the earlier reason code I identified, `service_not_rendered`, doesn't match a goods-not-received payment. The code for that situation is `goods_not_received`. The eligibility check was run under the earlier code, so I'd need to re-run it under `goods_not_received` before opening the dispute. I won't file anything until you confirm.",
+              "summarized": true,
+              "tools": [
+                "get_account",
+                "check_limits"
+              ],
+              "tool_calls": [
+                {
+                  "name": "get_account",
+                  "arguments": {},
+                  "result": {
+                    "customer": {
+                      "id": "CUS-0004",
+                      "name": "Danylo Kovalenko",
+                      "tier": "tier1"
+                    },
+                    "accounts": [
+                      {
+                        "id": "ACC-1005",
+                        "customer_id": "CUS-0004",
+                        "currency": "EUR",
+                        "balance": 1310.2,
+                        "tier": "tier1",
+                        "holder": "Danylo Kovalenko"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "check_limits",
+                  "arguments": {
+                    "customer_id": "CUS-0004"
+                  },
+                  "result": {
+                    "tier": "tier1",
+                    "as_of": "2026-09-15",
+                    "daily_limit_eur": 5000,
+                    "daily_spent_eur": 0,
+                    "daily_remaining_eur": 5000,
+                    "monthly_limit_eur": 50000,
+                    "monthly_spent_eur": 35.5,
+                    "monthly_remaining_eur": 49964.5
+                  }
+                }
+              ],
+              "fragments": [],
+              "usage": {
+                "input_tokens": 9208,
+                "output_tokens": 970,
+                "model": "claude-haiku-5-5",
+                "cost_usd": 0.001406
+              }
+            },
+            {
+              "turn": 4,
+              "user": "And the FX spread if I pay in USD?",
+              "answer": "To quote the FX spread, I need the amount you want to convert. Your account is in EUR, so I'll assume you'd be converting EUR to USD. Please tell me the amount, and I'll run the full quote showing the mid rate, tier spread, any free allowance, and the final amount.",
+              "summarized": false,
+              "tools": [],
+              "tool_calls": [],
+              "fragments": [],
+              "usage": {
+                "input_tokens": 3521,
+                "output_tokens": 381,
+                "model": "claude-haiku-5-5",
+                "cost_usd": 0.000543
+              }
+            },
+            {
+              "turn": 5,
+              "user": "Fine. Back to that charge — what do I do next?",
+              "answer": "The charge is eligible for a dispute under `goods_not_received`. The check passed on all criteria:\n\n- **Reason code:** valid\n- **Transaction status:** passed\n- **Window:** passed. The payment was made on 2026-07-20, and the 90-day window closes on **2026-10-18**.\n- **Account holds:** none\n\nIf you want me to open the dispute, reply \"yes\" or \"confirm.\" It will be filed for the full transaction amount under `goods_not_received`. Once it's filed, it can't be reversed through me, so tell me if you'd prefer to wait.",
+              "summarized": false,
+              "tools": [
+                "check_dispute_eligibility"
+              ],
+              "tool_calls": [
+                {
+                  "name": "check_dispute_eligibility",
+                  "arguments": {
+                    "transaction_id": "TX-0401",
+                    "reason_code": "goods_not_received"
+                  },
+                  "result": {
+                    "eligible": true,
+                    "reason_code": "goods_not_received",
+                    "window_days": 90,
+                    "tx_date": "2026-07-20",
+                    "as_of": "2026-09-15",
+                    "deadline": "2026-10-18",
+                    "checks": {
+                      "reason_code": "pass",
+                      "tx_status": "pass",
+                      "window": "pass",
+                      "compliance_hold": "pass"
+                    }
+                  }
+                }
+              ],
+              "fragments": [],
+              "usage": {
+                "input_tokens": 7478,
+                "output_tokens": 735,
+                "model": "claude-haiku-5-5",
+                "cost_usd": 0.001115
+              }
+            },
+            {
+              "turn": 6,
+              "user": "240 euro, as I said at the start.",
+              "answer": "Your transaction TX-0401 is EUR 240.00 to TechMart Online, dated 2026-07-20. The dispute would cover that full amount under `goods_not_received`, with a deadline of 2026-10-18.\n\nI haven't filed it yet. Please reply \"confirm\" if you want me to open the dispute for EUR 240.00.\n\nI also noticed TX-0402: another EUR 240.00 charge to TechMart Online, dated 2026-07-14. If that was a second charge for the same purchase rather than a separate order, it may be a duplicate charge, which is a different reason code. I can check its eligibility if you want.",
+              "summarized": false,
+              "tools": [
+                "get_transactions"
+              ],
+              "tool_calls": [
+                {
+                  "name": "get_transactions",
+                  "arguments": {
+                    "account_id": "ACC-1005",
+                    "limit": 50
+                  },
+                  "result": {
+                    "transactions": [
+                      {
+                        "id": "TX-0403",
+                        "account_id": "ACC-1005",
+                        "date": "2026-09-01",
+                        "amount": 35.5,
+                        "currency": "EUR",
+                        "merchant": "CityParking",
+                        "direction": "out",
+                        "transfer_type": "card",
+                        "status": "settled"
+                      },
+                      {
+                        "id": "TX-0401",
+                        "account_id": "ACC-1005",
+                        "date": "2026-07-20",
+                        "amount": 240.0,
+                        "currency": "EUR",
+                        "merchant": "TechMart Online",
+                        "direction": "out",
+                        "transfer_type": "card",
+                        "status": "settled"
+                      },
+                      {
+                        "id": "TX-0402",
+                        "account_id": "ACC-1005",
+                        "date": "2026-07-14",
+                        "amount": 240.0,
+                        "currency": "EUR",
+                        "merchant": "TechMart Online",
+                        "direction": "out",
+                        "transfer_type": "card",
+                        "status": "settled"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "fragments": [],
+              "usage": {
+                "input_tokens": 8465,
+                "output_tokens": 832,
+                "model": "claude-haiku-5-5",
+                "cost_usd": 0.001263
+              }
+            },
+            {
+              "turn": 7,
+              "user": "And I still have time to file, right?",
+              "answer": "Yes. The deadline for TX-0401 is **2026-10-18**, and today is 2026-09-15, so you have about 33 days left.\n\nIf you want to go ahead, reply \"confirm\" and I'll file the dispute for EUR 240.00 under `goods_not_received`.",
+              "summarized": false,
+              "tools": [],
+              "tool_calls": [],
+              "fragments": [],
+              "usage": {
+                "input_tokens": 4636,
+                "output_tokens": 179,
+                "model": "claude-haiku-5-5",
+                "cost_usd": 0.000553
+              }
+            }
+          ]
+        }
+      ],
+      "run_stats": {
+        "runs": 1,
+        "passed": 0,
+        "first_fail_turns": [
+          4
+        ],
+        "min": 4,
+        "max": 4,
+        "median": 4
+      }
+    }
+  ]
+}
